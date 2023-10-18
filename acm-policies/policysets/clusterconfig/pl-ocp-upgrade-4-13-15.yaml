@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-ocp-upgrade-4-13-17
+  name: pl-ocp-upgrade-4-13-15
   annotations:
-    policy.open-cluster-management.io/description: 'Upgrade OCP to 4.13.17'
+    policy.open-cluster-management.io/description: 'Upgrade OCP to 4.13.15'
     policy.open-cluster-management.io/standards: ''
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
@@ -29,4 +29,4 @@ spec:
                 channel: stable-4.13
                 desiredUpdate:
                   force: true
-                  version: 4.13.17
+                  version: 4.13.15
