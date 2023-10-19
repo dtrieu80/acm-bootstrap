@@ -50,3 +50,27 @@ spec:
                 syncPolicy:
                   automated:
                     selfHeal: true
+    - extraDependencies:
+      - apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        name: demo-mc1-managedcluster
+        namespace: ""
+        compliance: Compliant
+      objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: demo-mc1-managedcluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: cluster.open-cluster-management.io/v1
+              kind: ManagedCluster
+              metadata:
+                name: demo-mc1
+              spec:
+                hubAcceptsClient: true
