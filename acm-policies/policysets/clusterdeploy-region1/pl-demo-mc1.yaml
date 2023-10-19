@@ -9,6 +9,7 @@ metadata:
     policy.open-cluster-management.io/controls: ''
 spec:
   disabled: false
+  pruneObjectBehavior: DeleteAll
   policy-templates:
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
