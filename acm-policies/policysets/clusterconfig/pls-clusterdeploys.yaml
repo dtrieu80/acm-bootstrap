@@ -5,4 +5,5 @@ metadata:
 spec:
   description: Cluster ArgoApp Deployments
   policies:
+    - pl-hive-secrets
     - pl-demo-mc1

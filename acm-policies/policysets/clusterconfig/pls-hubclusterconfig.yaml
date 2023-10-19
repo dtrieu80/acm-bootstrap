@@ -7,4 +7,3 @@ spec:
   policies:
     - pl-ocp-gitops-install
     - pl-ocp-gitops-config
-    - pl-hive-secrets
