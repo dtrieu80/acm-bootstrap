@@ -50,13 +50,13 @@ spec:
                 syncPolicy:
                   automated:
                     selfHeal: true
-    - extraDependencies:
+      extraDependencies:
       - apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         name: demo-mc1-managedcluster
         namespace: ""
         compliance: Compliant
-      objectDefinition:
+    - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
