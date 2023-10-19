@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-demo-mc1
+  name: pl-demo-mc2
   annotations:
-    policy.open-cluster-management.io/description: 'Deploy cluster demo-mc1'
+    policy.open-cluster-management.io/description: 'Deploy cluster demo-mc2'
     policy.open-cluster-management.io/standards: ''
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: demo-mc1-argoapp
+          name: demo-mc2-argoapp
         spec:
           remediationAction: enforce
           severity: low
@@ -25,7 +25,7 @@ spec:
               apiVersion: argoproj.io/v1alpha1
               kind: Application
               metadata:
-                name: demo-mc1
+                name: demo-mc2
                 namespace: openshift-gitops
                 #finalizers:
                 #- resources-finalizer.argocd.argoproj.io
@@ -36,7 +36,7 @@ spec:
                 source:
                   helm:
                     values: |
-                      clusterName: demo-mc1
+                      clusterName: demo-mc2
                       baseDomain: 9rpv6.azure.redhatworkshops.io
                       controlplaneReplicas: 3
                       computeReplicas: 2

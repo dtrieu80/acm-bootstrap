@@ -7,3 +7,4 @@ spec:
   policies:
     - pl-hive-secrets
     - pl-demo-mc1
+    - pl-demo-mc2
