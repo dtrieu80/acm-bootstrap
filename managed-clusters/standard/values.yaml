@@ -1,3 +1,12 @@
 # Default values for standard.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+clusterName: default
+baseDomain: k8s.acme.com
+controlplaneReplicas: 3
+computeReplicas: 3
+resourcegroup: myresources
+region: eastus
+sshPubkey: ssh-ed25519 AAAABBBBCCCC dtrieu@example.com
+ocpVersion: 1.2.3

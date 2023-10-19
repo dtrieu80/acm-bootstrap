@@ -6,7 +6,8 @@ metadata:
     region: {{ .Values.region }}
     name: {{ .Values.clusterName }}
     vendor: OpenShift
-    versedt.dev/acm-enabled: true
+    versedt.dev/acm-enabled: 'true'
+    versedt.dev/environment: lab
     cluster.open-cluster-management.io/clusterset: 'default'
   name: {{ .Values.clusterName }}
 spec:

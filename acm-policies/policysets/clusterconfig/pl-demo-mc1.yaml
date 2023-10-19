@@ -1,0 +1,49 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-demo-mc1
+  annotations:
+    policy.open-cluster-management.io/description: 'Deploy cluster demo-mc1'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: demo-mc1-argoapp
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Application
+              metadata:
+                name: demo-mc1
+                namespace: openshift-gitops
+              spec:
+                destination:
+                  server: 'https://kubernetes.default.svc'
+                project: default
+                source:
+                  helm:
+                    values: |
+                      clusterName: demo-mc1
+                      baseDomain: 9rpv6.azure.redhatworkshops.io
+                      controlplaneReplicas: 3
+                      computeReplicas: 2
+                      resourcegroup: openenv-9rpv6
+                      region: eastus
+                      sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
+                      ocpVersion: 4.12.35
+                  path: managed-clusters/azure
+                  repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                  targetRevision: main
+                syncPolicy:
+                  automated:
+                    selfHeal: true
