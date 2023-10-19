@@ -11,6 +11,6 @@ metadata:
     cluster.open-cluster-management.io/clusterset: 'default'
   name: {{ .Values.clusterName }}
   annotations:
-    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/sync-options: Delete=false
 spec:
   hubAcceptsClient: true

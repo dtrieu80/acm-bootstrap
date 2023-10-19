@@ -3,4 +3,4 @@ apiVersion: v1
 metadata:
   name: {{ .Values.clusterName }}
   annotations:
-    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/sync-options: Delete=false

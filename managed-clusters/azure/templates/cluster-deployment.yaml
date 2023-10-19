@@ -9,7 +9,7 @@ metadata:
     vendor: OpenShift
     cluster.open-cluster-management.io/clusterset: 'default'
   annotations:
-    argocd.argoproj.io/sync-options: Prune=true
+    argocd.argoproj.io/sync-options: Delete=true
 spec:
   baseDomain: {{ .Values.baseDomain }}
   clusterName: {{ .Values.clusterName }}
