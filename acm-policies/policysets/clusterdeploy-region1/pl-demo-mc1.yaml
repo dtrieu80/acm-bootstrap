@@ -73,9 +73,6 @@ spec:
               metadata:
                 labels:
                   cloud: Azure
-                  name: demo-mc1
-                  vendor: OpenShift
-                  cluster.open-cluster-management.io/clusterset: 'default'
                 name: demo-mc1
               spec:
                 hubAcceptsClient: true
