@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-ocp-import-managed-cluster
+  name: pl-import-cluster-01
   annotations:
     policy.open-cluster-management.io/description: 'Import a cluster to ACM Hub'
     policy.open-cluster-management.io/standards: ''
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: setup-auto-importy
+          name: setup-auto-import
         spec:
           remediationAction: enforce
           severity: low
