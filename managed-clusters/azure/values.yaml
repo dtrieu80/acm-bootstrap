@@ -2,11 +2,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-clusterName: default
-baseDomain: k8s.acme.com
-controlplaneReplicas: 3
-computeReplicas: 3
-resourcegroup: myresources
-region: eastus
-sshPubkey: ssh-ed25519 AAAABBBBCCCC dtrieu@example.com
-ocpVersion: 1.2.3
+clusterName: demo-mc1 # Kubernetes-compatible
+install: # Values for install and should not be changed after install.
+  ocpVersion: 4.12.35 # x.y.z
+  region: eastus # Azure region
+  baseDomain: abcde.azure.microsoft.io # DNS zone
+  resourcegroup: rg-abcde # Resource group that holds the DNS Zone. For the cluster, a new resource group will be created.
+  controlplaneReplicas: 3
+  computeReplicas: 2
+  sshPubkey: ssh-ed25519 AAAABBBBCCCCDDDDEEEE12345 dtrieu@acme.com # Public Key
+runtime: # Changeable values post-install
+  computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
+  managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
+    versedt.dev/acm-enabled: true
+    versedt.dev/environment: lab
