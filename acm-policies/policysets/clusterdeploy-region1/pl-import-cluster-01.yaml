@@ -33,7 +33,7 @@ spec:
                 name: auto-import-secret
                 namespace: import-cluster-01  #cluster name to import
               stringData:
-                autoImportRetry: 10
+                autoImportRetry: "10"
                 kubeconfig: '{{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec }}'
               type: Opaque
           - complianceType: musthave
