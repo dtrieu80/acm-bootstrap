@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-demo-mc2
+  name: pl-demo-mc2 # Update: pl-<clusterName>
   annotations:
-    policy.open-cluster-management.io/description: 'Deploy cluster demo-mc2'
+    policy.open-cluster-management.io/description: 'Deploy cluster demo-mc2' # Update: Deploy cluster <clusterName>
     policy.open-cluster-management.io/standards: ''
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: demo-mc2-argoapp
+          name: demo-mc2-argoapp # Update: <clusterName>-argoapp
         spec:
           remediationAction: enforce
           severity: low
@@ -25,16 +25,17 @@ spec:
               apiVersion: argoproj.io/v1alpha1
               kind: Application
               metadata:
-                name: demo-mc2
+                name: demo-mc2 # Update: <clusterName>
                 namespace: openshift-gitops
-                #finalizers:
-                #- resources-finalizer.argocd.argoproj.io
+                finalizers:
+                - resources-finalizer.argocd.argoproj.io
               spec:
                 destination:
                   server: 'https://kubernetes.default.svc'
                 project: default
                 source:
                   helm:
+                    # Update: Refer to Helm Chart for proper values
                     values: |
                       clusterName: demo-mc2
                       baseDomain: 9rpv6.azure.redhatworkshops.io
@@ -44,9 +45,36 @@ spec:
                       region: eastus
                       sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
                       ocpVersion: 4.12.35
-                  path: managed-clusters/azure
+                  path: managed-clusters/azure # Update: <provider>
                   repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
                   targetRevision: main
                 syncPolicy:
                   automated:
                     selfHeal: true
+      extraDependencies:
+      - apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        name: demo-mc2-managedcluster # Update: <clusterName>-managedcluster
+        namespace: ""
+        compliance: Compliant
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: demo-mc2-managedcluster # Update: <clusterName>-managedcluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: cluster.open-cluster-management.io/v1
+              kind: ManagedCluster
+              metadata:
+                labels:
+                  cloud: Azure # Update: <provider>
+                  vendor: OpenShift
+                name: demo-mc2 # Update: <clusterName>
+              spec:
+                hubAcceptsClient: true
