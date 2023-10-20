@@ -44,10 +44,24 @@ spec:
                         baseDomain: 9rpv6.azure.redhatworkshops.io
                         resourcegroup: openenv-9rpv6
                         controlplaneReplicas: 3
+                        controlplaneSize: Standard_D4s_v3
+                        controlplaneOSDiskSizeGB: 128
                         computeReplicas: 2
+                        computeSize: Standard_D2s_v3
+                        computeOSDiskSizeGB: 128
+                        computeZones:
+                        - "1"
+                        - "2"
+                        - "3"
                         sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
                       runtime:
-                        computeReplicas: 1
+                        computeReplicas: 2
+                        computeSize: Standard_D2s_v3
+                        computeOSDiskSizeGB: 128
+                        computeZones:
+                        - "1"
+                        - "2"
+                        - "3"
                         managedClusterLabels:
                           versedt.dev/acm-enabled: true
                           versedt.dev/environment: lab
