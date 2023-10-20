@@ -2,10 +2,10 @@ apiVersion: cluster.open-cluster-management.io/v1
 kind: ManagedCluster
 metadata:
   labels:
-  {{- range $name, $value := .Values.managedClusterLabels }}
+  {{- range $name, $value := .Values.runtime.managedClusterLabels }}
     {{ $name }}: '{{ $value }}'
   {{- end }}
-    region: '{{ .Values.region }}'
+    region: '{{ .Values.install.region }}'
     cluster.open-cluster-management.io/clusterset: 'default'
   name: {{ .Values.clusterName }}
   annotations:

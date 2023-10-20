@@ -5,23 +5,23 @@ metadata:
   namespace: {{ .Values.clusterName }}
   labels:
     cloud: 'Azure'
-    region: {{ .Values.region }}
+    region: {{ .Values.install.region }}
     vendor: OpenShift
     cluster.open-cluster-management.io/clusterset: 'default'
   annotations:
     argocd.argoproj.io/sync-options: Delete=true
 spec:
-  baseDomain: {{ .Values.baseDomain }}
+  baseDomain: {{ .Values.install.baseDomain }}
   clusterName: {{ .Values.clusterName }}
   controlPlaneConfig:
     servingCertificates: {}
   installAttemptsLimit: 3
   platform:
     azure:
-      baseDomainResourceGroupName: {{ .Values.resourcegroup }}
+      baseDomainResourceGroupName: {{ .Values.install.resourcegroup }}
       credentialsSecretRef:
         name: {{ .Values.clusterName }}-azure-creds
-      region: {{ .Values.region }}
+      region: {{ .Values.install.region }}
       cloudName: AzurePublicCloud
   provisioning:
     installConfigSecretRef:
@@ -29,6 +29,6 @@ spec:
     sshPrivateKeySecretRef:
       name: {{ .Values.clusterName }}-ssh-private-key
     imageSetRef:
-      name: img{{ .Values.ocpVersion }}-multi-appsub
+      name: img{{ .Values.install.ocpVersion }}-multi-appsub
   pullSecretRef:
     name: {{ .Values.clusterName }}-pull-secret
