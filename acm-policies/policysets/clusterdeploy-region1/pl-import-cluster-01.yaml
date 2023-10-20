@@ -34,7 +34,7 @@ spec:
                 namespace: import-cluster-01  #cluster name to import
               stringData:
                 autoImportRetry: 10
-                kubeconfig: {{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" }}
+                kubeconfig: '{{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" }}'
               type: Opaque
           - complianceType: musthave
             objectDefinition:             
