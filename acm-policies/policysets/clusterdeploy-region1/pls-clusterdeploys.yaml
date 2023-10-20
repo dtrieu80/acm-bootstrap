@@ -8,3 +8,4 @@ spec:
     - pl-hive-secrets
     - pl-demo-mc1
     - pl-demo-mc2
+    - import-cluster-01
