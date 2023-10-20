@@ -47,7 +47,7 @@ spec:
                         computeReplicas: 2
                         sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
                       runtime:
-                        computeReplicas: 2
+                        computeReplicas: 0
                         managedClusterLabels:
                           versedt.dev/acm-enabled: true
                           versedt.dev/environment: lab
