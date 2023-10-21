@@ -1,0 +1,34 @@
+#/bin/bash
+
+# Assumes you have logged into hub cluster
+
+# Create Secret for Azure
+cat <<EOF | oc create -f -
+kind: Secret
+apiVersion: v1
+metadata:
+  name: test-creds
+  namespace: openshift-config
+stringData:
+  cloudName: AzurePublicCloud
+  ssh-privatekey: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
+    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
+    -----END OPENSSH PRIVATE KEY-----
+  httpsProxy: ''
+  httpProxy: ''
+  baseDomainResourceGroupName: acme-rg
+  noProxy: ''
+  ssh-publickey: |
+    ssh-ed25519 AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345 dtrieu@acme.com
+  additionalTrustBundle: ''
+  pullSecret: |
+    {"auths":{"cloud.openshift.com":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"},"quay.io":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"},"registry.connect.redhat.com":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"},"registry.redhat.io":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"}}}
+  baseDomain: acme.azure.microsoft.com
+  osServicePrincipal.json: |
+    {"clientId":"abcde-12345-abcde-12345-abcde12345","clientSecret":"ABCDE","tenantId":"abcde-12345-abcde-12345-abcde12345","subscriptionId":"abcde-12345-abcde-12345-abcde12345"}
+type: Opaque
+EOF
+
+# TODO Create Secret for vSphere
