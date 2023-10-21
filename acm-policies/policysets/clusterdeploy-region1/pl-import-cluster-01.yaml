@@ -18,6 +18,7 @@ spec:
         spec:
           remediationAction: enforce
           severity: low
+          pruneObjectBehavior: DeleteAll
           object-templates-raw: |
             - complianceType: musthave
               objectDefinition:
@@ -52,6 +53,7 @@ spec:
         spec:
           remediationAction: enforce
           severity: low
+          pruneObjectBehavior: DeleteAll
           object-templates-raw: |
             - complianceType: musthave
               objectDefinition:             
