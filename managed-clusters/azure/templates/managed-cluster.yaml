@@ -6,7 +6,6 @@ metadata:
     {{ $name }}: '{{ $value }}'
   {{- end }}
     region: '{{ .Values.install.region }}'
-    cluster.open-cluster-management.io/clusterset: 'default'
   name: {{ .Values.clusterName }}
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
