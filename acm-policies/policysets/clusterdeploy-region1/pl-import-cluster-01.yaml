@@ -14,60 +14,71 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: setup-auto-import
+          name: create-ns-and-secret
         spec:
           remediationAction: enforce
           severity: low
-          object-templates:
-          - complianceType: musthave
-            objectDefinition:
-              apiVersion: v1
-              kind: Namespace
-              metadata:
-                name: import-cluster-01   #cluster name to import
-          - complianceType: musthave
-            objectDefinition:
-              apiVersion: v1
-              kind: Secret
-              metadata:
-                name: auto-import-secret
-                namespace: import-cluster-01  #cluster name to import
-              stringData:
-                autoImportRetry: "10"
-                kubeconfig: '{{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec }}'
-              type: Opaque
-          - complianceType: musthave
-            objectDefinition:             
-              apiVersion: cluster.open-cluster-management.io/v1
-              kind: ManagedCluster
-              metadata:
-                labels:
-                  cloud: auto-detect
-                  vendor: auto-detect
-                name: import-cluster-01
-              spec:
-                hubAcceptsClient: true
-                leaseDurationSeconds: 60            
-          - complianceType: musthave
-            objectDefinition:   
-              apiVersion: agent.open-cluster-management.io/v1
-              kind: KlusterletAddonConfig
-              metadata:
-                name: import-cluster-01
-                namespace: import-cluster-01
-              spec:
-                clusterName: import-cluster-01
-                clusterNamespace: import-cluster-01
-                clusterLabels:
-                  cloud: auto-detect
-                  vendor: auto-detect
-                applicationManager:
-                  enabled: true
-                policyController:
-                  enabled: true
-                searchCollector:
-                  enabled: true
-                certPolicyController:
-                  enabled: true
-                iamPolicyController:
-                  enabled: true                            
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: import-cluster-01   #cluster name to import
+            {{- if (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "import-cluster-01") }} #cluster name to import
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: auto-import-secret
+                  namespace: import-cluster-01  #cluster name to import
+                stringData:
+                  autoImportRetry: "10"
+                  kubeconfig: '{{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec }}'
+                type: Opaque
+            {{- end }}
+    # - objectDefinition:
+    #     apiVersion: policy.open-cluster-management.io/v1
+    #     kind: ConfigurationPolicy
+    #     metadata:
+    #       name: create-mc-and-klusterlet
+    #     spec:
+    #       remediationAction: enforce
+    #       severity: low
+    #       object-templates-raw: |
+    #         - complianceType: musthave
+    #           objectDefinition:             
+    #             apiVersion: cluster.open-cluster-management.io/v1
+    #             kind: ManagedCluster
+    #             metadata:
+    #               labels:
+    #                 cloud: auto-detect
+    #                 vendor: auto-detect
+    #               name: import-cluster-01
+    #             spec:
+    #               hubAcceptsClient: true
+    #               leaseDurationSeconds: 60            
+    #         - complianceType: musthave
+    #           objectDefinition:   
+    #             apiVersion: agent.open-cluster-management.io/v1
+    #             kind: KlusterletAddonConfig
+    #             metadata:
+    #               name: import-cluster-01
+    #               namespace: import-cluster-01
+    #             spec:
+    #               clusterName: import-cluster-01
+    #               clusterNamespace: import-cluster-01
+    #               clusterLabels:
+    #                 cloud: auto-detect
+    #                 vendor: auto-detect
+    #               applicationManager:
+    #                 enabled: true
+    #               policyController:
+    #                 enabled: true
+    #               searchCollector:
+    #                 enabled: true
+    #               certPolicyController:
+    #                 enabled: true
+    #               iamPolicyController:
+    #                 enabled: true
