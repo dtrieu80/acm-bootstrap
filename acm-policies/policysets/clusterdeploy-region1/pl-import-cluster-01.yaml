@@ -24,18 +24,18 @@ spec:
                 apiVersion: v1
                 kind: Namespace
                 metadata:
-                  name: import-cluster-01   #cluster name to import
-            {{- if not (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "import-cluster-01") }} #cluster name to import
+                  name: import-cluster-01
+            {{- if not (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "import-cluster-01") }}
             - complianceType: musthave
               objectDefinition:
                 apiVersion: v1
                 kind: Secret
                 metadata:
                   name: auto-import-secret
-                  namespace: import-cluster-01  #cluster name to import
+                  namespace: import-cluster-01
                 stringData:
                   autoImportRetry: "10"
-                  kubeconfig: {{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec }}
+                  kubeconfig: "foo"
                 type: Opaque
             {{- end }}
     # - objectDefinition:
