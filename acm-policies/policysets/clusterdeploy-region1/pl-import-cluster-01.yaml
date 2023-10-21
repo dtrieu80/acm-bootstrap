@@ -58,9 +58,6 @@ spec:
                 apiVersion: cluster.open-cluster-management.io/v1
                 kind: ManagedCluster
                 metadata:
-                  labels:
-                    cloud: auto-detect
-                    vendor: auto-detect
                   name: import-cluster-01
                 spec:
                   hubAcceptsClient: true
