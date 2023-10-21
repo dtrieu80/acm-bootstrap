@@ -36,7 +36,7 @@ spec:
                 stringData:
                   autoImportRetry: "10"
                   kubeconfig: |
-                    {{- fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec -}}
+                    {{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec }}
                 type: Opaque
             {{- end }}
     # - objectDefinition:
