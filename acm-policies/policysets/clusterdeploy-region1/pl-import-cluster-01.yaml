@@ -60,8 +60,8 @@ spec:
                 metadata:
                   name: import-cluster-01
                   labels:
-                    versedt.dev/acm-enabled=true
-                    versedt.dev/environment=lab
+                    versedt.dev/acm-enabled: 'true'
+                    versedt.dev/environment: lab
                 spec:
                   hubAcceptsClient: true
                   leaseDurationSeconds: 60            
