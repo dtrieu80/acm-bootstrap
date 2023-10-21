@@ -33,10 +33,9 @@ spec:
                 metadata:
                   name: auto-import-secret
                   namespace: import-cluster-01
-                stringData:
-                  autoImportRetry: "10"
-                  kubeconfig: |
-                    {{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" | base64dec }}
+                data:
+                  autoImportRetry: MTA=
+                  kubeconfig: {{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" }}
                 type: Opaque
             {{- end }}
     # - objectDefinition:
