@@ -13,7 +13,7 @@ spec:
     azure:
       osDisk:
         diskSizeGB: {{ .Values.runtime.computeOSDiskSizeGB }}
-      type: {{ .Values.runtime.computeSize }}
+      type: {{ .Values.install.computeSize }}
       zones:
       {{- range .Values.runtime.computeZones }}
       - '{{ . }}'
