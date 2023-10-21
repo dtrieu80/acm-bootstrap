@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acm-policies-alphacorp
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSet
+metadata:
+  name: alphacorp
+spec:
+  clusterSelector:
+    selectorType: ExclusiveClusterSetLabel
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSetBinding
+metadata:
+  name: alphacorp
+  namespace: acm-policies
+spec:
+  clusterSet: alphacorp
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSetBinding
+metadata:
+  name: alphacorp
+  namespace: acm-policies-alphacorp
+spec:
+  clusterSet: alphacorp
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: sub-clusterconfig-alphacorp
+  namespace: acm-policies-alphacorp
+  annotations:
+    apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/git-path: /acm-policies/policysets/clusterconfig-alphacorp
+    apps.open-cluster-management.io/reconcile-option: replace
+spec:
+  channel: acm-policies/acm-policies-channel
+  placement:
+    local: true

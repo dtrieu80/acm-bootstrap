@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: acm-policies-alphacorp
+  name: acm-policies-betacorp
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta2
 kind: ManagedClusterSet
 metadata:
-  name: alphacorp
+  name: betacorp
 spec:
   clusterSelector:
     selectorType: ExclusiveClusterSetLabel
@@ -15,27 +15,27 @@ spec:
 apiVersion: cluster.open-cluster-management.io/v1beta2
 kind: ManagedClusterSetBinding
 metadata:
-  name: alphacorp
+  name: betacorp
   namespace: acm-policies
 spec:
-  clusterSet: alphacorp
+  clusterSet: betacorp
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta2
 kind: ManagedClusterSetBinding
 metadata:
-  name: alphacorp
-  namespace: acm-policies-alphacorp
+  name: betacorp
+  namespace: acm-policies-betacorp
 spec:
-  clusterSet: alphacorp
+  clusterSet: betacorp
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
-  name: sub-clusterdeploy-alphacorp
-  namespace: acm-policies-alphacorp
+  name: sub-clusterconfig-betacorp
+  namespace: acm-policies-betacorp
   annotations:
     apps.open-cluster-management.io/git-branch: main
-    apps.open-cluster-management.io/git-path: /acm-policies/policysets/clusterdeploy-region1 #Fix
+    apps.open-cluster-management.io/git-path: /acm-policies/policysets/clusterconfig-betacorp
     apps.open-cluster-management.io/reconcile-option: replace
 spec:
   channel: acm-policies/acm-policies-channel

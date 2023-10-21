@@ -62,7 +62,7 @@ spec:
                 metadata:
                   name: import-cluster-01
                   labels:
-                    cluster.open-cluster-management.io/clusterset: 'alphacorp'
+                    cluster.open-cluster-management.io/clusterset: 'betacorp'
                     versedt.dev/acm-enabled: 'true'
                     versedt.dev/environment: lab
                 spec:
