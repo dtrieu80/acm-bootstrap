@@ -5,6 +5,7 @@ metadata:
 spec:
   description: Cluster Day1 Configuration
   policies:
+    - pl-oauth-idp
     - pl-ocp-gitops-install
     - pl-ocp-gitops-config
     - pl-ocp-compliance-install
