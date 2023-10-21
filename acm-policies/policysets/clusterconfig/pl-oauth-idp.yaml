@@ -37,9 +37,9 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: check-htpasswd-secret
+          name: propagate-htpasswd-secret
         spec:
-          remediationAction: inform
+          remediationAction: enforce
           severity: high
           object-templates:
             - complianceType: musthave
@@ -49,4 +49,5 @@ spec:
                 metadata:
                   name: htpass-secret
                   namespace: openshift-config
-
+                data:
+                  htpasswd: '{{hub fromSecret "acm-policies" "localusers" "htpasswd" hub}}'
