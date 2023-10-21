@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vsphere-creds
+  namespace: openshift-config
+  labels:
+    cluster.open-cluster-management.io/type: vmw
+    cluster.open-cluster-management.io/credentials: ""
+stringData:
+  vCenter: vcenter.acme.com
+  username: roadrunner
+  password: beepbeep
+  cacertificate: |-
+    -----BEGIN TRUSTED CERTIFICATE-----
+    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
+    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
+    -----END TRUSTED CERTIFICATE-----
+  cluster: sedona
+  datacenter: arizona
+  defaultDatastore: redrocks
+  vsphereFolder: /arizona/vm/my/foldername
+  vsphereResourcePool: /arizona/host/sedona/Resources/mirage-resource-pool
+  vsphereDiskType: thin
+  baseDomain: vsphere.acme.com
+  pullSecret: |
+    {"auths":{"cloud.openshift.com":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"},"quay.io":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"},"registry.connect.redhat.com":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"},"registry.redhat.io":{"auth":"ABCDE12345...","email":"dtrieu@acme.com"}}}
+  ssh-privatekey: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
+    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
+    -----END OPENSSH PRIVATE KEY-----
+  ssh-publickey: |
+    ssh-ed25519 AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345 dtrieu@acme.com
+  imageContentSources: ""
+  disconnectedAdditionalTrustBundle: ""
+  httpProxy: ""
+  httpsProxy: ""
+  noProxy: ""
+  additionalTrustBundle: ""
+type: Opaque

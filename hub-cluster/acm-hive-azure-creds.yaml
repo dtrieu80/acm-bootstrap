@@ -1,14 +1,11 @@
-#/bin/bash
-
-# Assumes you have logged into hub cluster
-
-# Create Secret for Azure
-cat <<EOF | oc create -f -
-kind: Secret
 apiVersion: v1
+kind: Secret
 metadata:
-  name: test-creds
+  name: azure-creds
   namespace: openshift-config
+  labels:
+    cluster.open-cluster-management.io/type: azr
+    cluster.open-cluster-management.io/credentials: ""
 stringData:
   cloudName: AzurePublicCloud
   ssh-privatekey: |
@@ -29,6 +26,3 @@ stringData:
   osServicePrincipal.json: |
     {"clientId":"abcde-12345-abcde-12345-abcde12345","clientSecret":"ABCDE","tenantId":"abcde-12345-abcde-12345-abcde12345","subscriptionId":"abcde-12345-abcde-12345-abcde12345"}
 type: Opaque
-EOF
-
-# TODO Create Secret for vSphere
