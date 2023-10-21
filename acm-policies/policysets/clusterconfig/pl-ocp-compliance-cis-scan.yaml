@@ -8,7 +8,6 @@ metadata:
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
 spec:
-  remediationAction: inform
   disabled: false
   policy-templates:
     - objectDefinition:
@@ -17,7 +16,7 @@ spec:
         metadata:
           name: compliance-cis-scan
         spec:
-          remediationAction: inform
+          remediationAction: enforce
           severity: high
           object-templates:
             - complianceType: musthave # this template creates ScanSettingBinding:cis
