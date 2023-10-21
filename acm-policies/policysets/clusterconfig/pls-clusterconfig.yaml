@@ -8,3 +8,4 @@ spec:
     - pl-ocp-gitops-install
     - pl-ocp-gitops-config
     - pl-ocp-compliance-install
+    - pl-ocp-compliance-cis-scan
