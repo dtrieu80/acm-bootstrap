@@ -51,6 +51,41 @@ spec:
                 spec:
                   kustomizeBuildOptions: "--enable-helm"
                   resourceTrackingMethod: annotation
+                  server:
+                    autoscale:
+                      enabled: false
+                    grpc:
+                      ingress:
+                        enabled: false
+                    ingress:
+                      enabled: false
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 125m
+                        memory: 128Mi
+                    route:
+                      enabled: true
+                    service:
+                      type: ''
+                  rbac:
+                    policy: |
+                      g, system:cluster-admins, role:admin
+                      g, cluster-admins, role:admin
+                    scopes: '[groups]'
+                  sso:
+                    dex:
+                      openShiftOAuth: true
+                      resources:
+                        limits:
+                          cpu: 500m
+                          memory: 256Mi
+                        requests:
+                          cpu: 250m
+                          memory: 128Mi
+                    provider: dex                    
             - complianceType: musthave
               objectDefinition:
                 apiVersion: v1
