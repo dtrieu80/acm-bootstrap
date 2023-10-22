@@ -21,12 +21,16 @@ spec:
           object-templates:
             - complianceType: musthave
               objectDefinition:
-                apiVersion: v1
-                kind: ConfigMap
+                apiVersion: submariner.io/v1alpha1
+                kind: Broker
                 metadata:
-                  name: fake-broker
+                  name: submariner-broker
                   namespace: alphacorp-broker
-                data: {}
+                  labels:
+                    cluster.open-cluster-management.io/backup: submariner
+                spec:
+                  globalnetEnabled: true
+                  globalnetCIDRRange: 242.0.0.0/8
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -41,76 +45,31 @@ spec:
                          (eq $mc.metadata.name "demo-mc1" "demo-mc2") }}
             - complianceType: musthave
               objectDefinition:
-                apiVersion: v1
-                kind: ConfigMap
+                apiVersion: addon.open-cluster-management.io/v1alpha1
+                kind: ManagedClusterAddOn
                 metadata:
-                  name: fake-{{ $mc.metadata.name }}
-                  namespace: alphacorp-broker
-                data: {}
+                  name: submariner
+                  namespace: {{ $mc.metadata.name }}
+                spec:
+                  installNamespace: submariner-operator
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
+                kind: SubmarinerConfig
+                metadata:
+                  name: submariner
+                  namespace: {{ $mc.metadata.name }}
+                spec:
+                  gatewayConfig:
+                    gateways: 1
+                    azure:
+                      instanceType: Standard_F4s_v2
+                  IPSecNATTPort: 4500
+                  airGappedDeployment: false
+                  NATTEnable: true
+                  cableDriver: libreswan
+                  globalCIDR: ""
+                  credentialsSecret:
+                    name: {{ $mc.metadata.name }}-azure-creds
               {{- end }}
             {{- end }}
-
-
-
-# apiVersion: addon.open-cluster-management.io/v1alpha1
-# kind: ManagedClusterAddOn
-# metadata:
-#   name: submariner
-#   namespace: demo-mc1
-# spec:
-#   installNamespace: submariner-operator
-# ---
-# apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
-# kind: SubmarinerConfig
-# metadata:
-#   name: submariner
-#   namespace: demo-mc1
-# spec:
-#   gatewayConfig:
-#     gateways: 1
-#     azure:
-#       instanceType: Standard_F4s_v2
-#   IPSecNATTPort: 4500
-#   airGappedDeployment: false
-#   NATTEnable: true
-#   cableDriver: libreswan
-#   globalCIDR: ""
-#   credentialsSecret:
-#     name: demo-mc1-azure-creds
-# ---
-# apiVersion: addon.open-cluster-management.io/v1alpha1
-# kind: ManagedClusterAddOn
-# metadata:
-#   name: submariner
-#   namespace: demo-mc2
-# spec:
-#   installNamespace: submariner-operator
-# ---
-# apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
-# kind: SubmarinerConfig
-# metadata:
-#   name: submariner
-#   namespace: demo-mc2
-# spec:
-#   gatewayConfig:
-#     gateways: 1
-#     azure:
-#       instanceType: Standard_F4s_v2
-#   IPSecNATTPort: 4500
-#   airGappedDeployment: false
-#   NATTEnable: true
-#   cableDriver: libreswan
-#   globalCIDR: ""
-#   credentialsSecret:
-#     name: demo-mc2-azure-creds
-# ---
-# apiVersion: submariner.io/v1alpha1
-# kind: Broker
-# metadata:
-#   name: submariner-broker
-#   namespace: alphacorp-broker
-#   labels:
-#     cluster.open-cluster-management.io/backup: submariner
-# spec:
-#   globalnetEnabled: true
-#   globalnetCIDRRange: 242.0.0.0/8
