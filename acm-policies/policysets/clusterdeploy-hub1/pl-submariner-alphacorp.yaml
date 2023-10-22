@@ -1,0 +1,116 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-submariner-alphacorp
+  annotations:
+    policy.open-cluster-management.io/description: 'Setup Submariner for ClusterSet alphacorp'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: create-submariner-broker
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: ConfigMap
+                metadata:
+                  name: fake-broker
+                  namespace: alphacorp-broker
+                data: {}
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: create-submariner-configs
+        spec:
+          remediationAction: enforce
+          severity: low
+          object-templates-raw: |
+            {{- range $mc := (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "").items }}
+              {{- if and (eq (index $mc.metadata.labels "cluster.open-cluster-management.io/clusterset") "alphacorp")
+                         (eq $mc.metadata.name "demo-mc1" "demo-mc2") }}
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: ConfigMap
+                metadata:
+                  name: fake-{{ $mc.metadata.name }}
+                  namespace: alphacorp-broker
+                data: {}
+              {{- end }}
+            {{- end }}
+
+
+
+# apiVersion: addon.open-cluster-management.io/v1alpha1
+# kind: ManagedClusterAddOn
+# metadata:
+#   name: submariner
+#   namespace: demo-mc1
+# spec:
+#   installNamespace: submariner-operator
+# ---
+# apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
+# kind: SubmarinerConfig
+# metadata:
+#   name: submariner
+#   namespace: demo-mc1
+# spec:
+#   gatewayConfig:
+#     gateways: 1
+#     azure:
+#       instanceType: Standard_F4s_v2
+#   IPSecNATTPort: 4500
+#   airGappedDeployment: false
+#   NATTEnable: true
+#   cableDriver: libreswan
+#   globalCIDR: ""
+#   credentialsSecret:
+#     name: demo-mc1-azure-creds
+# ---
+# apiVersion: addon.open-cluster-management.io/v1alpha1
+# kind: ManagedClusterAddOn
+# metadata:
+#   name: submariner
+#   namespace: demo-mc2
+# spec:
+#   installNamespace: submariner-operator
+# ---
+# apiVersion: submarineraddon.open-cluster-management.io/v1alpha1
+# kind: SubmarinerConfig
+# metadata:
+#   name: submariner
+#   namespace: demo-mc2
+# spec:
+#   gatewayConfig:
+#     gateways: 1
+#     azure:
+#       instanceType: Standard_F4s_v2
+#   IPSecNATTPort: 4500
+#   airGappedDeployment: false
+#   NATTEnable: true
+#   cableDriver: libreswan
+#   globalCIDR: ""
+#   credentialsSecret:
+#     name: demo-mc2-azure-creds
+# ---
+# apiVersion: submariner.io/v1alpha1
+# kind: Broker
+# metadata:
+#   name: submariner-broker
+#   namespace: alphacorp-broker
+#   labels:
+#     cluster.open-cluster-management.io/backup: submariner
+# spec:
+#   globalnetEnabled: true
+#   globalnetCIDRRange: 242.0.0.0/8
