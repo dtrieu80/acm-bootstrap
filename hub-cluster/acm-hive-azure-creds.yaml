@@ -9,10 +9,7 @@ metadata:
 stringData:
   cloudName: AzurePublicCloud
   ssh-privatekey: |
-    -----BEGIN OPENSSH PRIVATE KEY-----
-    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
-    AAAAABBBBBCCCCCDDDDD12345123451234512345EEEEEFFFFFGGGGGHHHHH1234512345
-    -----END OPENSSH PRIVATE KEY-----
+    # Put SSH Private Key Block Here
   httpsProxy: ''
   httpProxy: ''
   baseDomainResourceGroupName: acme-rg
