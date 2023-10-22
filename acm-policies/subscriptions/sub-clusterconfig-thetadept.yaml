@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acm-policies-thetadept
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSetBinding
+metadata:
+  name: internal
+  namespace: acm-policies-thetadept
+spec:
+  clusterSet: internal
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: sub-clusterconfig-thetadept
+  namespace: acm-policies-thetadept
+  annotations:
+    apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/git-path: /acm-policies/policysets/clusterconfig-thetadept
+    apps.open-cluster-management.io/reconcile-option: replace
+spec:
+  channel: acm-policies/acm-policies-channel
+  placement:
+    local: true

@@ -1,0 +1,25 @@
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: pm-thetadept
+spec:
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - {key: versedt.dev/acm-enabled, operator: In, values: ["true"]}
+          - {key: versedt.dev/thetadept, operator: In, values: ["true"]}
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: pb-thetadept
+placementRef:
+  name: pm-thetadept
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
+subjects:
+- name: pls-clusterconfig-thetadept
+  apiGroup: policy.open-cluster-management.io
+  kind: PolicySet
