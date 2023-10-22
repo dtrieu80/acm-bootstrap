@@ -1,0 +1,93 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-import-cluster-02
+  annotations:
+    policy.open-cluster-management.io/description: 'Import a cluster to ACM Hub'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: create-ns-and-secret
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: import-cluster-02
+            {{- if not (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "" "import-cluster-02") }}
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: auto-import-secret
+                  namespace: import-cluster-02
+                data:
+                  autoImportRetry: MTA=
+                  kubeconfig: {{ fromSecret "openshift-config" "import-cluster-02" "kubeconfig" }}
+                type: Opaque
+            {{- end }}
+    - extraDependencies:
+      - apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        name: create-ns-and-secret
+        namespace: ""
+        compliance: Compliant
+      objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: create-mc-and-klusterlet
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:             
+                apiVersion: cluster.open-cluster-management.io/v1
+                kind: ManagedCluster
+                metadata:
+                  name: import-cluster-02
+                  labels:
+                    cluster.open-cluster-management.io/clusterset: 'betacorp'
+                    versedt.dev/acm-enabled: 'true'
+                    versedt.dev/environment: lab
+                spec:
+                  hubAcceptsClient: true
+                  leaseDurationSeconds: 60            
+            - complianceType: musthave
+              objectDefinition:   
+                apiVersion: agent.open-cluster-management.io/v1
+                kind: KlusterletAddonConfig
+                metadata:
+                  name: import-cluster-02
+                  namespace: import-cluster-02
+                spec:
+                  clusterName: import-cluster-02
+                  clusterNamespace: import-cluster-02
+                  clusterLabels:
+                    cloud: auto-detect
+                    vendor: auto-detect
+                  applicationManager:
+                    enabled: true
+                  policyController:
+                    enabled: true
+                  searchCollector:
+                    enabled: true
+                  certPolicyController:
+                    enabled: true
+                  iamPolicyController:
+                    enabled: true
