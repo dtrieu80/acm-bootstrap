@@ -60,6 +60,7 @@ spec:
                   name: submariner
                   namespace: {{ $mc.metadata.name }}
                 spec:
+                  loadBalancerEnable: true
                   gatewayConfig:
                     gateways: 1
                     azure:
