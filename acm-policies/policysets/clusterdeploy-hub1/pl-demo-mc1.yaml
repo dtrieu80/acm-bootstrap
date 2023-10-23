@@ -55,7 +55,7 @@ spec:
                         - "3"
                         sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
                       runtime:
-                        computeReplicas: 4
+                        computeReplicas: 5
                         computeOSDiskSizeGB: 128
                         computeZones:
                         - "1"
