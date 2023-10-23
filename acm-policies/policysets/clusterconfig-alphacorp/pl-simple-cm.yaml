@@ -16,7 +16,7 @@ spec:
         metadata:
           name: simple-cm
         spec:
-          remediationAction: enforce
+          remediationAction: inform
           severity: low
           pruneObjectBehavior: DeleteAll
           object-templates:
