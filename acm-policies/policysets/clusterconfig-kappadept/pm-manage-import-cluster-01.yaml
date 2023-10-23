@@ -1,0 +1,25 @@
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: pm-manage-import-cluster-01
+spec:
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - {key: versedt.dev/acm-enabled, operator: In, values: ["true"]}
+          - {key: name, operator: In, values: ["import-cluster-01"]}
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: pb-manage-import-cluster-01
+placementRef:
+  name: pm-manage-import-cluster-01
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
+subjects:
+- name: pl-manage-import-cluster-01
+  apiGroup: policy.open-cluster-management.io
+  kind: Policy

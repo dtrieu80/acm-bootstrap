@@ -1,0 +1,49 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-manage-import-cluster-01
+  annotations:
+    policy.open-cluster-management.io/description: 'Manage import-cluster-01'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: manage-ocp-cluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Application
+                metadata:
+                  name: import-cluster-01
+                  namespace: openshift-gitops
+                  finalizers:
+                  - resources-finalizer.argocd.argoproj.io
+                spec:
+                  destination:
+                    server: 'https://kubernetes.default.svc'
+                  project: default
+                  source:
+                    helm:
+                      # Update: Refer to Helm Chart for proper values
+                      values: |
+                        machinesets:
+                        {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
+                          - {{ $ms }}
+                        {{- end }}
+                    path: managed-clusters/openshift
+                    repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                    targetRevision: main
+                  syncPolicy:
+                    automated:
+                      selfHeal: true
