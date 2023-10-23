@@ -39,7 +39,9 @@ spec:
                       values: |
                         machinesets:
                         {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
-                          - {{ $ms }}
+                          - name: {{ $ms.metadata.name }}
+                            type: {{ index $ms.metadata.labels "machine.openshift.io/cluster-api-machine-role" }}
+                            replicas: {{ $ms.spec.replicas }}
                         {{- end }}
                     path: managed-clusters/openshift
                     repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
