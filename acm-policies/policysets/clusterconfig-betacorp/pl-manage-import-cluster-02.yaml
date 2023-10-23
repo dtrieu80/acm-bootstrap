@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-manage-import-cluster-01
+  name: pl-manage-import-cluster-02
   annotations:
-    policy.open-cluster-management.io/description: 'Manage import-cluster-01'
+    policy.open-cluster-management.io/description: 'Manage import-cluster-02'
     policy.open-cluster-management.io/standards: ''
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: manage-ocp-cluster-import-cluster-01
+          name: manage-ocp-cluster-import-cluster-02
         spec:
           remediationAction: enforce
           severity: low
