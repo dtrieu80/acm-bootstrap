@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: create-ns-and-secret
+          name: create-ns-and-secret-import-cluster-01
         spec:
           remediationAction: enforce
           severity: low
@@ -42,14 +42,14 @@ spec:
     - extraDependencies:
       - apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
-        name: create-ns-and-secret
+        name: create-ns-and-secret-import-cluster-01
         namespace: ""
         compliance: Compliant
       objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: create-mc-and-klusterlet
+          name: create-mc-and-klusterlet-import-cluster-01
         spec:
           remediationAction: enforce
           severity: low
