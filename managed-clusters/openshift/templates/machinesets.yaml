@@ -1,0 +1,38 @@
+{{- $cmss := .Values.currentMachineSets }}
+{{- range $dms := .Values.desiredMachineSets }}
+
+  {{- $typecount := 0 }}
+  {{- range $index, $cms := $cmss }}
+    {{- if eq $cms.type $dms.type }}
+      {{- $typecount = (add $typecount 1) }}
+    {{- end }}
+  {{- end }}
+
+  {{- $base := div $dms.replicas $typecount }}
+  {{- $rmdr := mod $dms.replicas $typecount }}
+
+  {{- range $index, $cms := $cmss }}
+    {{- if eq $cms.type $dms.type }}
+      {{- if lt $index $rmdr }}
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  name: {{ $cms.name }}
+  namespace: {{ $cms.namespace }}
+spec:
+  replicas: {{ add $base 1 }}
+      {{- else }}
+---
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  name: {{ $cms.name }}
+  namespace: {{ $cms.namespace }}
+spec:
+  replicas: {{ $base }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+

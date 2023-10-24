@@ -1,0 +1,24 @@
+# Default values for openshift.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+desiredMachineSets:
+  - type: worker
+    replicas: 5
+currentMachineSets:
+  - name: ocp4-worker-eastus1
+    namespace: openshift-machine-api
+    type: worker
+    replicas: 1
+  - name: ocp4-worker-eastus2
+    namespace: openshift-machine-api
+    type: worker
+    replicas: 2
+  - name: ocp4-worker-eastus3
+    namespace: openshift-machine-api
+    type: worker
+    replicas: 2
+  - name: ocp4-infra-eastus4
+    namespace: openshift-machine-api
+    type: infra
+    replicas: 1
