@@ -1,0 +1,49 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-gatekeeper-install
+  annotations:
+    policy.open-cluster-management.io/description: 'Installs the OPA Gatekeeper Operator'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: gatekeeper-namespace
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: openshift-gatekeeper
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: gatekeeper-subscription
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: operators.coreos.com/v1alpha1
+                kind: Subscription
+                metadata:
+                  name: gatekeeper-operator-product
+                  namespace: openshift-gatekeeper
+                spec:
+                  channel: stable
+                  installPlanApproval: Automatic
+                  name: gatekeeper-operator-product
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
