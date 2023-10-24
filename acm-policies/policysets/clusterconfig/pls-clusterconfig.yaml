@@ -10,5 +10,5 @@ spec:
     - pl-ocp-gitops-config
     - pl-ocp-compliance-install
     - pl-ocp-compliance-cis-scan
-    #- pl-gatekeeper-install
-    #- pl-gatekeeper-config
+    - pl-gatekeeper-install
+    - pl-gatekeeper-config

@@ -10,37 +10,37 @@ metadata:
 spec:
   disabled: false
   policy-templates:
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: gatekeeper-namespace
-        spec:
-          remediationAction: enforce
-          severity: medium
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: v1
-                kind: Namespace
-                metadata:
-                  name: openshift-gatekeeper
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: gatekeeper-operator-group
-        spec:
-          remediationAction: enforce
-          severity: medium
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: operators.coreos.com/v1
-                kind: OperatorGroup
-                metadata:
-                  name: gatekeeper-operator-group
-                  namespace: openshift-gatekeeper
+    # - objectDefinition:
+    #     apiVersion: policy.open-cluster-management.io/v1
+    #     kind: ConfigurationPolicy
+    #     metadata:
+    #       name: gatekeeper-namespace
+    #     spec:
+    #       remediationAction: enforce
+    #       severity: medium
+    #       object-templates:
+    #         - complianceType: musthave
+    #           objectDefinition:
+    #             apiVersion: v1
+    #             kind: Namespace
+    #             metadata:
+    #               name: openshift-gatekeeper
+    # - objectDefinition:
+    #     apiVersion: policy.open-cluster-management.io/v1
+    #     kind: ConfigurationPolicy
+    #     metadata:
+    #       name: gatekeeper-operator-group
+    #     spec:
+    #       remediationAction: enforce
+    #       severity: medium
+    #       object-templates:
+    #         - complianceType: musthave
+    #           objectDefinition:
+    #             apiVersion: operators.coreos.com/v1
+    #             kind: OperatorGroup
+    #             metadata:
+    #               name: gatekeeper-operator-group
+    #               namespace: openshift-gatekeeper
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
@@ -56,7 +56,7 @@ spec:
                 kind: Subscription
                 metadata:
                   name: gatekeeper-operator-product
-                  namespace: openshift-gatekeeper
+                  namespace: openshift-operators
                 spec:
                   channel: stable
                   installPlanApproval: Automatic

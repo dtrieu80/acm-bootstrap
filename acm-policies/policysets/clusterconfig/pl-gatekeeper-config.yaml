@@ -51,7 +51,7 @@ spec:
                 kind: Config
                 metadata:
                   name: config
-                  namespace: openshift-gatekeeper
+                  namespace: openshift-gatekeeper-system
                 spec:
                   match:
                     - excludedNamespaces:
