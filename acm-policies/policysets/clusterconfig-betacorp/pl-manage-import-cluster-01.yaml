@@ -37,9 +37,15 @@ spec:
                     helm:
                       # Update: Refer to Helm Chart for proper values
                       values: |
-                        machinesets:
+                        desiredMachineSets:
+                          - type: worker
+                            replicas: 5
+                        currentMachineSets:
                         {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
-                          - {{ $ms }}
+                          - name: {{ $ms.metadata.name }}
+                            namespace: {{ $ms.metadata.namespace }}
+                            type: {{ index $ms.metadata.labels "machine.openshift.io/cluster-api-machine-role" }}
+                            replicas: {{ $ms.spec.replicas }}
                         {{- end }}
                     path: managed-clusters/openshift
                     repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
