@@ -92,6 +92,6 @@ spec:
                   cloud: vSphere # Update: <provider>
                   vendor: OpenShift
                   cluster.open-cluster-management.io/clusterset: 'betacorp'
-                name: demo-vmware-mc1 # Update: <clusterName>
+                name: jnnbd # Update: <clusterName>
               spec:
                 hubAcceptsClient: true
