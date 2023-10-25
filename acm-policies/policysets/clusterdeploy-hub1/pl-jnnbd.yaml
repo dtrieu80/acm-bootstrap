@@ -40,8 +40,18 @@ spec:
                         clusterName: jnnbd # Kubernetes-compatible
                         install: # Values for install and should not be changed after install.
                           ocpVersion: 4.12.35 # x.y.z
-                          controlplaneReplicas: 3
-                          computeReplicas: 2
+                          controlplaneReplicas: 3  
+                          controlPlane:
+                              cpu: 4
+                              coresPerSocket: 2
+                              memoryMB: 16384
+                              osDiskSizeGB: 120
+                          computeReplicas: 2        
+                          compute:
+                              cpu: 4
+                              coresPerSocket: 2
+                              memoryMB: 16384
+                              osDiskSizeGB: 120
                           sshPubkey: {{ fromSecret "openshift-config" "vmware-demo-creds" "ssh-publickey" | base64dec }}
                           machineNetworkCIDR: 192.168.190.0/24
                           baseDomain: {{ fromSecret "openshift-config" "vmware-demo-creds" "baseDomain" | base64dec }}
@@ -57,7 +67,12 @@ spec:
                             ingressVIP: 192.168.190.202
                             network: segment-sandbox-jnnbd
                         runtime: # Changeable values post-install
-                          computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
+                            computeReplicas: 4 # Match value to install.computeReplicas for install, but can be changed later.
+                            compute:
+                              cpu: 4
+                              coresPerSocket: 2
+                              memoryMB: 16384
+                              osDiskSizeGB: 120 
                           managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
