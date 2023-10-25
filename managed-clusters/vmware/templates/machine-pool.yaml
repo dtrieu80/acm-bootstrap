@@ -11,9 +11,9 @@ spec:
   name: worker
   platform:
     vsphere:
-      cpus: 4
-      coresPerSocket: 2
-      memoryMB: 16384
+      cpus: {{ .Values.runtime.compute.cpu }}
+      coresPerSocket: {{ .Values.runtime.compute.coresPerSocket }}
+      memoryMB: {{ .Values.runtime.compute.memoryMB }}
       osDisk:
-        diskSizeGB: 120
-  replicas: 3
+        diskSizeGB: {{ .Values.runtime.compute.osDiskSizeGB }}
+  replicas: {{ .Values.runtime.computeReplicas }}
