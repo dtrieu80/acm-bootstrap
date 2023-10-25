@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-demo-vmware-mc1 # Update: pl-<clusterName>
+  name: pl-jnnbd # Update: pl-<clusterName>
   annotations:
-    policy.open-cluster-management.io/description: 'pl-demo-vmware-mc1 ' # Update: Deploy cluster <clusterName>
+    policy.open-cluster-management.io/description: 'pl-jnnbd ' # Update: Deploy cluster <clusterName>
     policy.open-cluster-management.io/standards: ''
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: demo-vmware-mc1-argoapp # Update: <clusterName>-argoapp
+          name: jnnbd-argoapp # Update: <clusterName>-argoapp
         spec:
           remediationAction: enforce
           severity: low
@@ -25,7 +25,7 @@ spec:
                 apiVersion: argoproj.io/v1alpha1
                 kind: Application
                 metadata:
-                  name: demo-vmware-mc1  # Update: <clusterName>
+                  name: jnnbd  # Update: <clusterName>
                   namespace: openshift-gitops
                   finalizers:
                   - resources-finalizer.argocd.argoproj.io
@@ -70,14 +70,14 @@ spec:
       extraDependencies:
       - apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
-        name: demo-vmware-mc1-managedcluster # Update: <clusterName>-managedcluster
+        name: jnnbd-managedcluster # Update: <clusterName>-managedcluster
         namespace: ""
         compliance: Compliant
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: demo-vmware-mc1-managedcluster # Update: <clusterName>-managedcluster
+          name: jnnbd-managedcluster # Update: <clusterName>-managedcluster
         spec:
           remediationAction: enforce
           severity: low
