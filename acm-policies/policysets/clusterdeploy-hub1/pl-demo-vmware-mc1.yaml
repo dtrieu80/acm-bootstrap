@@ -20,53 +20,53 @@ spec:
           severity: low
           pruneObjectBehavior: DeleteAll
           object-templates-raw: |
-          - complianceType: musthave
-            objectDefinition:
-              apiVersion: argoproj.io/v1alpha1
-              kind: Application
-              metadata:
-                name: demo-vmware-mc1  # Update: <clusterName>
-                namespace: openshift-gitops
-                finalizers:
-                - resources-finalizer.argocd.argoproj.io
-              spec:
-                destination:
-                  server: 'https://kubernetes.default.svc'
-                project: default
-                source:
-                  helm:
-                    # Update: Refer to Helm Chart for proper values
-                    values: |
-                      clusterName: demo-vmware-mc1 # Kubernetes-compatible
-                      install: # Values for install and should not be changed after install.
-                        ocpVersion: 4.12.35 # x.y.z
-                        controlplaneReplicas: 3
-                        computeReplicas: 2
-                        sshPubkey: {{ fromSecret "openshift-config" "vmware-demo-creds" "ssh-publickey" }}
-                        machineNetworkCIDR: 192.168.190.0/24
-                        baseDomain: {{ fromSecret "openshift-config" "vmware-demo-creds" "baseDomain" }}
-                        vsphere:
-                          vCenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "vCenter" }}
-                          username: {{ fromSecret "openshift-config" "vmware-demo-creds" "username" }} 
-                          password: {{ fromSecret "openshift-config" "vmware-demo-creds" "password" }}
-                          cluster: {{ fromSecret "openshift-config" "vmware-demo-creds" "cluster" }}
-                          datacenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "datacenter" }} 
-                          datastore: {{ fromSecret "openshift-config" "vmware-demo-creds" "defaultDatastore" }}
-                          folder: {{ fromSecret "openshift-config" "vmware-demo-creds" "vsphereFolder" }}
-                          apiVIP: 192.168.190.201
-                          ingressVIP: 192.168.190.202
-                          network: segment-sandbox-jnnbd
-                      runtime: # Changeable values post-install
-                        computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
-                        managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
-                          versedt.dev/acm-enabled: true
-                          versedt.dev/environment: lab
-                  path: managed-clusters/vmware # Update: <provider>
-                  repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
-                  targetRevision: main
-                syncPolicy:
-                  automated:
-                    selfHeal: true
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Application
+                metadata:
+                  name: demo-vmware-mc1  # Update: <clusterName>
+                  namespace: openshift-gitops
+                  finalizers:
+                  - resources-finalizer.argocd.argoproj.io
+                spec:
+                  destination:
+                    server: 'https://kubernetes.default.svc'
+                  project: default
+                  source:
+                    helm:
+                      # Update: Refer to Helm Chart for proper values
+                      values: |
+                        clusterName: demo-vmware-mc1 # Kubernetes-compatible
+                        install: # Values for install and should not be changed after install.
+                          ocpVersion: 4.12.35 # x.y.z
+                          controlplaneReplicas: 3
+                          computeReplicas: 2
+                          sshPubkey: {{ fromSecret "openshift-config" "vmware-demo-creds" "ssh-publickey" }}
+                          machineNetworkCIDR: 192.168.190.0/24
+                          baseDomain: {{ fromSecret "openshift-config" "vmware-demo-creds" "baseDomain" }}
+                          vsphere:
+                            vCenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "vCenter" }}
+                            username: {{ fromSecret "openshift-config" "vmware-demo-creds" "username" }} 
+                            password: {{ fromSecret "openshift-config" "vmware-demo-creds" "password" }}
+                            cluster: {{ fromSecret "openshift-config" "vmware-demo-creds" "cluster" }}
+                            datacenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "datacenter" }} 
+                            datastore: {{ fromSecret "openshift-config" "vmware-demo-creds" "defaultDatastore" }}
+                            folder: {{ fromSecret "openshift-config" "vmware-demo-creds" "vsphereFolder" }}
+                            apiVIP: 192.168.190.201
+                            ingressVIP: 192.168.190.202
+                            network: segment-sandbox-jnnbd
+                        runtime: # Changeable values post-install
+                          computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
+                          managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
+                            versedt.dev/acm-enabled: true
+                            versedt.dev/environment: lab
+                    path: managed-clusters/vmware # Update: <provider>
+                    repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                    targetRevision: main
+                  syncPolicy:
+                    automated:
+                      selfHeal: true
       extraDependencies:
       - apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
