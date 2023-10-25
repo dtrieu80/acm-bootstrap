@@ -6,6 +6,8 @@ metadata:
   labels:
     cloud: 'vSphere'
     vendor: OpenShift
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=true  
 spec:
   baseDomain:  {{ .Values.install.baseDomain }}
   clusterName: {{ .Values.clusterName }}

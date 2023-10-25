@@ -6,5 +6,7 @@ metadata:
     name: {{ .Values.clusterName }}
     vendor: OpenShift
   name: {{ .Values.clusterName }}
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
 spec:
   hubAcceptsClient: true

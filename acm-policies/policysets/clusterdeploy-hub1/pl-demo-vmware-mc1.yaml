@@ -37,7 +37,7 @@ spec:
                     helm:
                       # Update: Refer to Helm Chart for proper values
                       values: |
-                        clusterName: demo-vmware-mc1 # Kubernetes-compatible
+                        clusterName: jnnbd # Kubernetes-compatible
                         install: # Values for install and should not be changed after install.
                           ocpVersion: 4.12.35 # x.y.z
                           controlplaneReplicas: 3
