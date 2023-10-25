@@ -42,17 +42,17 @@ spec:
                         ocpVersion: 4.12.35 # x.y.z
                         controlplaneReplicas: 3
                         computeReplicas: 2
-                        sshPubkey: {{ fromSecret "openshift-config" "vmware-demo-creds" "ssh-publickey" }}
+                        sshPubkey: '{{ fromSecret "openshift-config" "vmware-demo-creds" "ssh-publickey" }}'
                         machineNetworkCIDR: 192.168.190.0/24
-                        baseDomain: {{ fromSecret "openshift-config" "vmware-demo-creds" "baseDomain" }}
+                        baseDomain: '{{ fromSecret "openshift-config" "vmware-demo-creds" "baseDomain" }}'
                         vsphere:
-                          vCenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "vCenter" }}
-                          username: {{ fromSecret "openshift-config" "vmware-demo-creds" "username" }} 
-                          password: {{ fromSecret "openshift-config" "vmware-demo-creds" "password" }} 
-                          cluster: {{ fromSecret "openshift-config" "vmware-demo-creds" "cluster" }} 
-                          datacenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "datacenter" }} 
-                          datastore: {{ fromSecret "openshift-config" "vmware-demo-creds" "defaultDatastore" }} 
-                          folder: {{ fromSecret "openshift-config" "vmware-demo-creds" "vsphereFolder" }} 
+                          vCenter: '{{ fromSecret "openshift-config" "vmware-demo-creds" "vCenter" }}'
+                          username: '{{ fromSecret "openshift-config" "vmware-demo-creds" "username" }}' 
+                          password: '{{ fromSecret "openshift-config" "vmware-demo-creds" "password" }}'
+                          cluster: '{{ fromSecret "openshift-config" "vmware-demo-creds" "cluster" }}'
+                          datacenter: '{{ fromSecret "openshift-config" "vmware-demo-creds" "datacenter" }}' 
+                          datastore: '{{ fromSecret "openshift-config" "vmware-demo-creds" "defaultDatastore" }}' 
+                          folder: '{{ fromSecret "openshift-config" "vmware-demo-creds" "vsphereFolder" }}'
                           apiVIP: 192.168.190.201
                           ingressVIP: 192.168.190.202
                           network: segment-sandbox-jnnbd
