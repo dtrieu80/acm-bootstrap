@@ -13,14 +13,6 @@ spec:
     kind: ClusterVersion
     name: version
     patch: |-
-      {
-      "spec": {
-          "channel": "stable-{{ join "." (slice (splitList "." .Values.runtime.ocpVersion) 0 2) }}",
-          "desiredUpdate": {
-            "force": "true",
-            "version": "{{ .Values.runtime.ocpVersion }}"
-          }
-        }
-      }
+      {"spec": {"channel": "stable-{{ join "." (slice (splitList "." .Values.runtime.ocpVersion) 0 2) }}","desiredUpdate": {"force": "true","version": "{{ .Values.runtime.ocpVersion }}"}}}
     patchType: strategic
 {{- end }}
