@@ -17,7 +17,7 @@ spec:
       "spec": {
           "channel": "stable-{{ join "." (slice (splitList "." .Values.runtime.ocpVersion) 0 2) }}",
           "desiredUpdate": {
-            "force": "true",
+            "force": true,
             "version": "{{ .Values.runtime.ocpVersion }}"
           }
         }
