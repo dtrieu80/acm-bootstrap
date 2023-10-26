@@ -11,8 +11,7 @@ spec:
   patches:
   - apiVersion: config.openshift.io/v1
     kind: ClusterVersion
-    metadata:
-      name: version
+    name: version
     patch: |-
       {
       "spec": {
