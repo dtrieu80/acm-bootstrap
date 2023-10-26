@@ -26,7 +26,7 @@ spec:
                 metadata:
                   name: version
                 spec:
-                  channel: stable-{{hub printf("%s.%s", (split "." (index .ManagedClusterLabels "versedt.dev/upgradeTo"))._0, (split "." (index .ManagedClusterLabels "versedt.dev/upgradeTo"))._1) hub}}
+                  channel: stable-{{hub printf "%s.%s", (split "." (index .ManagedClusterLabels "versedt.dev/upgradeTo"))._0, (split "." (index .ManagedClusterLabels "versedt.dev/upgradeTo"))._1 hub}}
                   desiredUpdate:
                     force: true
                     version: {{hub (index .ManagedClusterLabels "versedt.dev/upgradeTo") hub}}
