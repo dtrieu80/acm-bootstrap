@@ -1,0 +1,26 @@
+{{ if .Values.runtime.ocpVersion }}
+apiVersion: hive.openshift.io/v1
+kind: SyncSet
+metadata:
+  name: {{ .Values.clusterName }}-cluster-version
+  namespace: {{ .Values.clusterName }}
+spec:
+  clusterDeploymentRefs:
+  - name: {{ .Values.clusterName }}
+
+  patches:
+  - apiVersion: config.openshift.io/v1
+    kind: ClusterVersion
+    name: version
+    patch: |-
+      {
+      "spec": {
+          "channel": "stable-{{ join "." (slice (splitList "." .Values.runtime.ocpVersion) 0 2) }}",
+          "desiredUpdate": {
+            "force": true,
+            "version": "{{ .Values.runtime.ocpVersion }}"
+          }
+        }
+      }
+    patchType: merge
+{{- end }}
