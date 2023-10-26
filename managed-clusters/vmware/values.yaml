@@ -21,16 +21,16 @@ install: # Values for install and should not be changed after install.
     network: segment-sandbox-jnnbd
   controlplaneReplicas: 3  
   controlPlane:
-      cpu: 4
-      coresPerSocket: 2
-      memoryMB: 16384
-      osDiskSizeGB: 120
+    cpus: 4
+    coresPerSocket: 2
+    memoryMB: 16384
+    osDiskSizeGB: 120
   computeReplicas: 2        
   compute:
-      cpu: 4
-      coresPerSocket: 2
-      memoryMB: 16384
-      osDiskSizeGB: 120
+    cpus: 4
+    coresPerSocket: 2
+    memoryMB: 16384
+    osDiskSizeGB: 120
 runtime: # Changeable values post-install
   computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
   compute:
