@@ -65,6 +65,7 @@ spec:
                     cluster.open-cluster-management.io/clusterset: 'betacorp'
                     versedt.dev/acm-enabled: 'true'
                     versedt.dev/environment: lab
+                    versedt.dev/imported: 'true'
                 spec:
                   hubAcceptsClient: true
                   leaseDurationSeconds: 60            
