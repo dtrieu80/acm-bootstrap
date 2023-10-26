@@ -39,7 +39,7 @@ spec:
                       values: |
                         desiredMachineSets:
                           - type: worker
-                            replicas: 5
+                            replicas: 4
                         currentMachineSets:
                         {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
                           - name: {{ $ms.metadata.name }}
