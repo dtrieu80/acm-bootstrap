@@ -49,7 +49,7 @@ spec:
                         controlplaneReplicas: 3
                         controlplaneSize: Standard_D4s_v3
                         controlplaneOSDiskSizeGB: 128
-                        computeReplicas: 5
+                        computeReplicas: 4
                         computeSize: Standard_D2s_v3
                         computeOSDiskSizeGB: 128
                         computeZones:
@@ -58,7 +58,7 @@ spec:
                         - "2"
                         sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
                       runtime:
-                        computeReplicas: 5
+                        computeReplicas: 4
                         computeOSDiskSizeGB: 128
                         computeZones:
                         - "3"
