@@ -34,6 +34,9 @@ spec:
                   server: 'https://kubernetes.default.svc'
                 project: default
                 source:
+                  path: managed-clusters/azure # Update: <provider>
+                  repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                  targetRevision: main
                   helm:
                     # Update: Refer to Helm Chart for proper values
                     values: |
@@ -64,37 +67,6 @@ spec:
                         managedClusterLabels:
                           versedt.dev/acm-enabled: true
                           versedt.dev/environment: lab
-                  path: managed-clusters/azure # Update: <provider>
-                  repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
-                  targetRevision: main
                 syncPolicy:
                   automated:
                     selfHeal: true
-      extraDependencies:
-      - apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        name: demo-mc2-managedcluster # Update: <clusterName>-managedcluster
-        namespace: ""
-        compliance: Compliant
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: demo-mc2-managedcluster # Update: <clusterName>-managedcluster
-        spec:
-          remediationAction: enforce
-          severity: low
-          pruneObjectBehavior: DeleteAll
-          object-templates:
-          - complianceType: musthave
-            objectDefinition:
-              apiVersion: cluster.open-cluster-management.io/v1
-              kind: ManagedCluster
-              metadata:
-                labels:
-                  cloud: Azure # Update: <provider>
-                  vendor: OpenShift
-                  cluster.open-cluster-management.io/clusterset: 'alphacorp'
-                name: demo-mc2 # Update: <clusterName>
-              spec:
-                hubAcceptsClient: true
