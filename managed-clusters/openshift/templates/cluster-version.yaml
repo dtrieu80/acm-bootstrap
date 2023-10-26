@@ -1,0 +1,11 @@
+{{- if .Values.ocpVersion }}
+apiVersion: config.openshift.io/v1
+kind: ClusterVersion
+metadata:
+  name: version
+spec:
+  channel: stable-{{ join "." (slice (splitList "." .Values.ocpVersion) 0 2) }}
+  desiredUpdate:
+    force: true
+    version: {{ .Values.ocpVersion }}
+{{- end }}
