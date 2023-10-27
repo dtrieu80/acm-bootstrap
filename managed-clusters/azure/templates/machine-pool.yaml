@@ -12,10 +12,35 @@ spec:
   platform:
     azure:
       osDisk:
-        diskSizeGB: {{ .Values.runtime.compute.osDiskSizeGB }}
+        diskSizeGB: {{ .Values.install.compute.osDiskSizeGB }}
       type: {{ .Values.install.compute.size }}
       zones:
-      {{- range .Values.runtime.compute.zones }}
+      {{- range .Values.install.compute.zones }}
       - '{{ . }}'
       {{- end }}
   replicas: {{ .Values.runtime.computeReplicas }}
+{{- $clustername := .Values.clusterName }}
+{{- range $index, $addCompute := .Values.runtime.additionalCompute }}
+---
+apiVersion: hive.openshift.io/v1
+kind: MachinePool
+metadata:
+  name: {{ $clustername }}-worker-{{ $index }}
+  namespace: {{ $clustername }}
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
+spec:
+  clusterDeploymentRef:
+    name: {{ $clustername }}
+  name: worker-{{ $index }}
+  platform:
+    azure:
+      osDisk:
+        diskSizeGB: {{ $addCompute.osDiskSizeGB }}
+      type: {{ $addCompute.size }}
+      zones:
+      {{- range $addCompute.zones }}
+      - '{{ . }}'
+      {{- end }}
+  replicas: {{ $addCompute.replicas }}
+{{- end }}

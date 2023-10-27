@@ -58,12 +58,6 @@ spec:
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
                         runtime:
                           computeReplicas: 2
-                          compute:
-                            osDiskSizeGB: 128
-                            zones:
-                            - "1"
-                            - "2"
-                            - "3"
                           managedClusterLabels:
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
