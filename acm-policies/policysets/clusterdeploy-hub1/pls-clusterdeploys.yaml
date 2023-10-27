@@ -13,4 +13,4 @@ spec:
     # ClusterSet betacorp
     #- pl-import-cluster-01
     #- pl-import-cluster-02
-    - pl-jnnbd
+    #- pl-jnnbd
