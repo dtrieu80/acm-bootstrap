@@ -19,57 +19,57 @@ spec:
           remediationAction: enforce
           severity: low
           pruneObjectBehavior: DeleteAll
-          object-templates:
-          - complianceType: musthave
-            objectDefinition:
-              apiVersion: argoproj.io/v1alpha1
-              kind: Application
-              metadata:
-                name: demo-mc2 # Update: <clusterName>
-                namespace: openshift-gitops
-                finalizers:
-                - resources-finalizer.argocd.argoproj.io
-              spec:
-                destination:
-                  server: 'https://kubernetes.default.svc'
-                project: default
-                source:
-                  path: managed-clusters/azure # Update: <provider>
-                  repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
-                  targetRevision: main
-                  helm:
-                    # Update: Refer to Helm Chart for proper values
-                    values: |
-                      clusterName: demo-mc2
-                      install:
-                        ocpVersion: 4.13.15
-                        region: eastus
-                        baseDomain: 9rpv6.azure.redhatworkshops.io
-                        resourcegroup: openenv-9rpv6
-                        controlplaneReplicas: 3
-                        controlplaneSize: Standard_D4s_v3
-                        controlplaneOSDiskSizeGB: 128
-                        computeReplicas: 4
-                        computeSize: Standard_D2s_v3
-                        computeOSDiskSizeGB: 128
-                        computeZones:
-                        - "3"
-                        - "1"
-                        - "2"
-                        sshPubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIg0okDXY8myTqw+9YpXzqiex9KaOpNSyFAhK3JE8nkZ dtrieu@dtrieu-thinkpadt14sgen2i.sjc.csb
-                      runtime:
-                        computeReplicas: 4
-                        computeOSDiskSizeGB: 128
-                        computeZones:
-                        - "3"
-                        - "1"
-                        - "2"
-                        managedClusterLabels:
-                          versedt.dev/acm-enabled: true
-                          versedt.dev/environment: lab
-                syncPolicy:
-                  automated:
-                    selfHeal: true
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Application
+                metadata:
+                  name: demo-mc2 # Update: <clusterName>
+                  namespace: openshift-gitops
+                  finalizers:
+                  - resources-finalizer.argocd.argoproj.io
+                spec:
+                  destination:
+                    server: 'https://kubernetes.default.svc'
+                  project: default
+                  source:
+                    path: managed-clusters/azure # Update: <provider>
+                    repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                    targetRevision: main
+                    helm:
+                      # Update: Refer to Helm Chart for proper values
+                      values: |
+                        clusterName: demo-mc2
+                        install:
+                          ocpVersion: 4.13.15
+                          region: eastus
+                          baseDomain: {{ fromSecret "openshift-config" "demo-creds" "baseDomain" | base64dec }}
+                          resourcegroup: {{ fromSecret "openshift-config" "demo-creds" "baseDomainResourceGroupName" | base64dec }}
+                          controlplaneReplicas: 3
+                          controlplaneSize: Standard_D4s_v3
+                          controlplaneOSDiskSizeGB: 128
+                          computeReplicas: 4
+                          computeSize: Standard_D2s_v3
+                          computeOSDiskSizeGB: 128
+                          computeZones:
+                          - "3"
+                          - "1"
+                          - "2"
+                          sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
+                        runtime:
+                          computeReplicas: 4
+                          computeOSDiskSizeGB: 128
+                          computeZones:
+                          - "3"
+                          - "1"
+                          - "2"
+                          managedClusterLabels:
+                            versedt.dev/acm-enabled: true
+                            versedt.dev/environment: lab
+                  syncPolicy:
+                    automated:
+                      selfHeal: true
       extraDependencies:
       - apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
