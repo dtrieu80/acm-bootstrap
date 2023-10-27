@@ -60,7 +60,7 @@ spec:
                             - "2"
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
                         runtime:
-                          computeReplicas: 0
+                          computeReplicas: 2
                           additionalCompute:
                             - id: 0
                               replicas: 1
