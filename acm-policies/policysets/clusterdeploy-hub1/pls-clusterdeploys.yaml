@@ -8,7 +8,7 @@ spec:
     - pl-hive-secrets
     # ClusterSet alphacorp
     #- pl-demo-mc1
-    - pl-demo-mc2
+    #- pl-demo-mc2
     #- pl-submariner-alphacorp
     # ClusterSet betacorp
     #- pl-import-cluster-01
