@@ -20,19 +20,19 @@ spec:
       {{- end }}
   replicas: {{ .Values.runtime.computeReplicas }}
 {{- $clustername := .Values.clusterName }}
-{{- range $index, $addCompute := .Values.runtime.additionalCompute }}
+{{- range $addCompute := .Values.runtime.additionalCompute }}
 ---
 apiVersion: hive.openshift.io/v1
 kind: MachinePool
 metadata:
-  name: {{ $clustername }}-worker-{{ $index }}
+  name: {{ $clustername }}-worker-{{ $addCompute.id }}
   namespace: {{ $clustername }}
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
 spec:
   clusterDeploymentRef:
     name: {{ $clustername }}
-  name: worker-{{ $index }}
+  name: worker-{{ $addCompute.id }}
   platform:
     azure:
       osDisk:
