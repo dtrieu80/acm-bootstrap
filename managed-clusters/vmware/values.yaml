@@ -2,42 +2,42 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-clusterName: demo-vmware-mc1 # Kubernetes-compatible
-install: # Values for install and should not be changed after install.
-  ocpVersion: 4.12.35 # x.y.z
-  sshPubkey: ssh-ed25519 AAAABBBBCCCCDDDDEEEE12345 dtrieu@acme.com # Public Key
-  machineNetworkCIDR: 192.168.190.0/24
-  baseDomain: abc.abc.com
-  vsphere:
-    vCenter: portal.vc.opentlc.com
-    username: test 
-    password: test
-    cluster: test
-    datacenter: SDDC-Datacenter
-    datastore: WorkloadDatastore
-    folder: /SDDC-Datacenter/vm/Workloads/sandbox-jnnbd
-    apiVIP: 192.168.190.201
-    ingressVIP: 192.168.190.202
-    network: segment-sandbox-jnnbd
-  controlplaneReplicas: 3  
-  controlPlane:
-    cpus: 4
-    coresPerSocket: 2
-    memoryMB: 16384
-    osDiskSizeGB: 120
-  computeReplicas: 2        
-  compute:
-    cpus: 4
-    coresPerSocket: 2
-    memoryMB: 16384
-    osDiskSizeGB: 120
-runtime: # Changeable values post-install
-  computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
-  compute:
-    cpu: 4
-    coresPerSocket: 2
-    memoryMB: 16384
-    osDiskSizeGB: 120
-  managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
-    versedt.dev/acm-enabled: true
-    versedt.dev/environment: lab
+#clusterName: demo-vmware-mc1 # Kubernetes-compatible
+#install: # Values for install and should not be changed after install.
+#  ocpVersion: 4.12.35 # x.y.z
+#  sshPubkey: ssh-ed25519 AAAABBBBCCCCDDDDEEEE12345 dtrieu@acme.com # Public Key
+#  machineNetworkCIDR: 192.168.190.0/24
+#  baseDomain: abc.abc.com
+#  vsphere:
+#    vCenter: portal.vc.opentlc.com
+#    username: test 
+#    password: test
+#    cluster: test
+#    datacenter: SDDC-Datacenter
+#    datastore: WorkloadDatastore
+#    folder: /SDDC-Datacenter/vm/Workloads/sandbox-jnnbd
+#    apiVIP: 192.168.190.201
+#    ingressVIP: 192.168.190.202
+#    network: segment-sandbox-jnnbd
+#  controlplaneReplicas: 3  
+#  controlPlane:
+#    cpus: 4
+#    coresPerSocket: 2
+#    memoryMB: 16384
+#    osDiskSizeGB: 120
+#  computeReplicas: 2        
+#  compute:
+#    cpus: 4
+#    coresPerSocket: 2
+#    memoryMB: 16384
+#    osDiskSizeGB: 120
+#runtime: # Changeable values post-install
+#  computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
+#  compute:
+#    cpu: 4
+#    coresPerSocket: 2
+#    memoryMB: 16384
+#    osDiskSizeGB: 120
+#  managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
+#    versedt.dev/acm-enabled: true
+#    versedt.dev/environment: lab

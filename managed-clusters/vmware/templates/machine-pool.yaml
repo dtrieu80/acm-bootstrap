@@ -11,9 +11,32 @@ spec:
   name: worker
   platform:
     vsphere:
-      cpus: {{ .Values.runtime.compute.cpus }}
-      coresPerSocket: {{ .Values.runtime.compute.coresPerSocket }}
-      memoryMB: {{ .Values.runtime.compute.memoryMB }}
+      cpus: {{ .Values.install.compute.cpus }}
+      coresPerSocket: {{ .Values.install.compute.coresPerSocket }}
+      memoryMB: {{ .Values.install.compute.memoryMB }}
       osDisk:
-        diskSizeGB: {{ .Values.runtime.compute.osDiskSizeGB }}
+        diskSizeGB: {{ .Values.install.compute.osDiskSizeGB }}
   replicas: {{ .Values.runtime.computeReplicas }}
+{{- $clustername := .Values.clusterName }}
+{{- range $addCompute := .Values.runtime.additionalCompute }}
+---
+apiVersion: hive.openshift.io/v1
+kind: MachinePool
+metadata:
+  name: {{ $clustername }}-worker-{{ $addCompute.id }}
+  namespace: {{ $clustername }}
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=false
+spec:
+  clusterDeploymentRef:
+    name: {{ $clustername }}
+  name: worker-{{ $addCompute.id }}
+  platform:
+    vsphere:
+      cpus: {{ $addCompute.cpus }}
+      coresPerSocket: {{ $addCompute.coresPerSocket }}
+      memoryMB: {{ $addCompute.memoryMB }}
+      osDisk:
+        diskSizeGB: {{ $addCompute.osDiskSizeGB }}
+  replicas: {{ $addCompute.replicas }}
+{{- end }}
