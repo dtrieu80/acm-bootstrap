@@ -63,14 +63,14 @@ spec:
                           computeReplicas: 0
                           additionalCompute:
                             - id: 0
-                              replicas: 2
+                              replicas: 1
                               size: Standard_D4s_v3
                               osDiskSizeGB: 128
                               zones:
                               - "3"
                               - "1"
                             - id: 1
-                              replicas: 2
+                              replicas: 1
                               size: Standard_D2s_v3
                               osDiskSizeGB: 128
                               zones:
