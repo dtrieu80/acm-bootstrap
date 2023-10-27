@@ -50,7 +50,7 @@ spec:
                           controlPlane:
                             size: Standard_D4s_v3
                             osDiskSizeGB: 128
-                          computeReplicas: 4
+                          computeReplicas: 2
                           compute:
                             size: Standard_D2s_v3
                             osDiskSizeGB: 128
@@ -60,7 +60,7 @@ spec:
                             - "2"
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
                         runtime:
-                          computeReplicas: 4
+                          computeReplicas: 2
                           additionalCompute:
                             - replicas: 2
                               size: Standard_D4s_v3
