@@ -12,10 +12,10 @@ spec:
   platform:
     azure:
       osDisk:
-        diskSizeGB: {{ .Values.runtime.computeOSDiskSizeGB }}
-      type: {{ .Values.install.computeSize }}
+        diskSizeGB: {{ .Values.runtime.compute.osDiskSizeGB }}
+      type: {{ .Values.install.compute.size }}
       zones:
-      {{- range .Values.runtime.computeZones }}
+      {{- range .Values.runtime.compute.zones }}
       - '{{ . }}'
       {{- end }}
   replicas: {{ .Values.runtime.computeReplicas }}

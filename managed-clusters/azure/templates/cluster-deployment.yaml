@@ -17,7 +17,7 @@ spec:
   installAttemptsLimit: 3
   platform:
     azure:
-      baseDomainResourceGroupName: {{ .Values.install.resourcegroup }}
+      baseDomainResourceGroupName: {{ .Values.install.resourceGroup }}
       credentialsSecretRef:
         name: {{ .Values.clusterName }}-azure-creds
       region: {{ .Values.install.region }}

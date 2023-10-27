@@ -42,25 +42,28 @@ spec:
                           ocpVersion: 4.12.35
                           region: eastus
                           baseDomain: {{ fromSecret "openshift-config" "demo-creds" "baseDomain" | base64dec }}
-                          resourcegroup: {{ fromSecret "openshift-config" "demo-creds" "baseDomainResourceGroupName" | base64dec }}
-                          controlplaneReplicas: 3
-                          controlplaneSize: Standard_D4s_v3
-                          controlplaneOSDiskSizeGB: 128
+                          resourceGroup: {{ fromSecret "openshift-config" "demo-creds" "baseDomainResourceGroupName" | base64dec }}
+                          controlPlaneReplicas: 3
+                          controlPlane:
+                            size: Standard_D4s_v3
+                            osDiskSizeGB: 128
                           computeReplicas: 2
-                          computeSize: Standard_D2s_v3
-                          computeOSDiskSizeGB: 128
-                          computeZones:
-                          - "1"
-                          - "2"
-                          - "3"
+                          compute:
+                            size: Standard_D2s_v3
+                            osDiskSizeGB: 128
+                            zones:
+                            - "1"
+                            - "2"
+                            - "3"
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
                         runtime:
                           computeReplicas: 2
-                          computeOSDiskSizeGB: 128
-                          computeZones:
-                          - "1"
-                          - "2"
-                          - "3"
+                          compute:
+                            osDiskSizeGB: 128
+                            zones:
+                            - "1"
+                            - "2"
+                            - "3"
                           managedClusterLabels:
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
