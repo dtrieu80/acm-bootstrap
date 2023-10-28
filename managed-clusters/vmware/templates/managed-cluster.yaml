@@ -2,9 +2,10 @@ apiVersion: cluster.open-cluster-management.io/v1
 kind: ManagedCluster
 metadata:
   labels:
-    cloud: vSphere
-    name: {{ .Values.clusterName }}
-    vendor: OpenShift
+  {{- range $name, $value := .Values.runtime.managedClusterLabels }}
+    {{ $name }}: '{{ $value }}'
+  {{- end }}
+    vCenter: {{ .Values.install.vsphere.vCenter }}
   name: {{ .Values.clusterName }}
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
