@@ -61,6 +61,7 @@ spec:
                           managedClusterLabels:
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
+                            versedt.dev/test: true
                     path: managed-clusters/azure # Update: <provider>
                     repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
                     targetRevision: main
