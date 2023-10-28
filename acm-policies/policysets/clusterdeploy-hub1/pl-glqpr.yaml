@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: pl-jnnbd # Update: pl-<clusterName>
+  name: pl-glqpr # Update: pl-<clusterName>
   annotations:
-    policy.open-cluster-management.io/description: 'pl-jnnbd ' # Update: Deploy cluster <clusterName>
+    policy.open-cluster-management.io/description: 'pl-glqpr ' # Update: Deploy cluster <clusterName>
     policy.open-cluster-management.io/standards: ''
     policy.open-cluster-management.io/categories: ''
     policy.open-cluster-management.io/controls: ''
@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: jnnbd-argoapp # Update: <clusterName>-argoapp
+          name: glqpr-argoapp # Update: <clusterName>-argoapp
         spec:
           remediationAction: enforce
           severity: low
@@ -25,7 +25,7 @@ spec:
                 apiVersion: argoproj.io/v1alpha1
                 kind: Application
                 metadata:
-                  name: jnnbd  # Update: <clusterName>
+                  name: glqpr  # Update: <clusterName>
                   namespace: openshift-gitops
                   finalizers:
                   - resources-finalizer.argocd.argoproj.io
@@ -37,7 +37,7 @@ spec:
                     helm:
                       # Update: Refer to Helm Chart for proper values
                       values: |
-                        clusterName: jnnbd # Kubernetes-compatible
+                        clusterName: glqpr # Kubernetes-compatible
                         install: # Values for install and should not be changed after install.
                           ocpVersion: 4.12.35 # x.y.z
                           controlplaneReplicas: 3  
@@ -53,7 +53,7 @@ spec:
                             memoryMB: 16384
                             osDiskSizeGB: 120
                           sshPubkey: {{ fromSecret "openshift-config" "vmware-demo-creds" "ssh-publickey" | base64dec }}
-                          machineNetworkCIDR: 192.168.190.0/24
+                          machineNetworkCIDR: 192.168.32.0/24
                           baseDomain: {{ fromSecret "openshift-config" "vmware-demo-creds" "baseDomain" | base64dec }}
                           vsphere:
                             vCenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "vCenter" | base64dec }}
@@ -63,19 +63,19 @@ spec:
                             datacenter: {{ fromSecret "openshift-config" "vmware-demo-creds" "datacenter" | base64dec }} 
                             datastore: {{ fromSecret "openshift-config" "vmware-demo-creds" "defaultDatastore" | base64dec }}
                             folder: {{ fromSecret "openshift-config" "vmware-demo-creds" "vsphereFolder" | base64dec  }}
-                            apiVIP: 192.168.190.201
-                            ingressVIP: 192.168.190.202
-                            network: segment-sandbox-jnnbd
+                            apiVIP: 192.168.32.201
+                            ingressVIP: 192.168.32.202
+                            network: segment-sandbox-glqpr
                         runtime: # Changeable values post-install
                           ocpVersion: 4.12.37
                           computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
-                          additionalCompute:
-                            - id: 0
-                              replicas: 2  
-                              cpus: 4
-                              coresPerSocket: 2
-                              memoryMB: 16384
-                              osDiskSizeGB: 120 
+#                          additionalCompute:
+#                            - id: 0
+#                              replicas: 2  
+#                              cpus: 4
+#                              coresPerSocket: 2
+#                              memoryMB: 16384
+#                              osDiskSizeGB: 120 
                           managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
@@ -88,14 +88,14 @@ spec:
       extraDependencies:
       - apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
-        name: jnnbd-managedcluster # Update: <clusterName>-managedcluster
+        name: glqpr-managedcluster # Update: <clusterName>-managedcluster
         namespace: ""
         compliance: Compliant
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: jnnbd-managedcluster # Update: <clusterName>-managedcluster
+          name: glqpr-managedcluster # Update: <clusterName>-managedcluster
         spec:
           remediationAction: enforce
           severity: low
@@ -110,6 +110,6 @@ spec:
                   cloud: vSphere # Update: <provider>
                   vendor: OpenShift
                   cluster.open-cluster-management.io/clusterset: 'betacorp'
-                name: jnnbd # Update: <clusterName>
+                name: glqpr # Update: <clusterName>
               spec:
                 hubAcceptsClient: true
