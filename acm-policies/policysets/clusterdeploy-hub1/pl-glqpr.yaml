@@ -67,7 +67,7 @@ spec:
                             ingressVIP: 192.168.32.202
                             network: segment-sandbox-glqpr
                         runtime: # Changeable values post-install
-                          ocpVersion: 4.12.37
+                          ocpVersion: 4.12.39
                           computeReplicas: 3 # Match value to install.computeReplicas for install, but can be changed later.
                           additionalCompute:
                             - id: 0
