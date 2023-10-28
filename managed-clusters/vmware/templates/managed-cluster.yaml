@@ -9,5 +9,3 @@ metadata:
   name: {{ .Values.clusterName }}
   annotations:
     argocd.argoproj.io/sync-options: Delete=false
-spec:
-  hubAcceptsClient: true
