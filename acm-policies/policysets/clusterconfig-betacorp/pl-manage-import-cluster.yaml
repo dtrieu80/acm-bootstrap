@@ -38,13 +38,13 @@ spec:
                       # Update: Refer to Helm Chart for proper values
                       values: |
                         desiredMachineSets:
-                        {{hub if (index .ManagedClusterLabels "versedt.dev/workerNodeCount") hub}}
+                        {{- if (index .ManagedClusterLabels "versedt.dev/workerNodeCount") }}
                           - type: worker
-                            replicas: {{hub (index .ManagedClusterLabels "versedt.dev/workerNodeCount") hub}}
-                        {{hub else if (index .ManagedClusterLabels "versedt.dev/masterNodeCount") hub}}
+                            replicas: {{ (index .ManagedClusterLabels "versedt.dev/workerNodeCount") }}
+                        {{- else if (index .ManagedClusterLabels "versedt.dev/masterNodeCount") }}
                           - type: master
-                            replicas: {{hub (index .ManagedClusterLabels "versedt.dev/masterNodeCount") hub}}
-                        {{hub end hub}}
+                            replicas: {{ (index .ManagedClusterLabels "versedt.dev/masterNodeCount") }}
+                        {{- end }}
                         currentMachineSets:
                         {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
                           - name: {{ $ms.metadata.name }}
