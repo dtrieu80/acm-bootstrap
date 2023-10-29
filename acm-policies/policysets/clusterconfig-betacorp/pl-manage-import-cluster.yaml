@@ -50,7 +50,7 @@ spec:
                         {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
                           - name: {{ $ms.metadata.name }}
                             namespace: {{ $ms.metadata.namespace }}
-                            type: {{ index $ms.metadata.labels "machine.openshift.io/cluster-api-machine-role" }}
+                            type: {{ index $ms.spec.template.metadata.labels "machine.openshift.io/cluster-api-machine-role" }}
                             replicas: {{ $ms.spec.replicas }}
                         {{- end }}
                     path: managed-clusters/openshift
