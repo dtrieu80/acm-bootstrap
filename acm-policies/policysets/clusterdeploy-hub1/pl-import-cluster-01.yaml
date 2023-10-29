@@ -66,6 +66,7 @@ spec:
                     versedt.dev/acm-enabled: 'true'
                     versedt.dev/environment: lab
                     versedt.dev/imported: 'true'
+                    versedt.dev/upgradeTo: 4.13.17
                 spec:
                   hubAcceptsClient: true
                   leaseDurationSeconds: 60            
