@@ -35,7 +35,7 @@ spec:
                   name: auto-import-secret
                   namespace: import-cluster-01
                 data:
-                  autoImportRetry: 10
+                  autoImportRetry: MTA=
                   kubeconfig: {{ fromSecret "openshift-config" "import-cluster-01" "kubeconfig" }}
                 type: Opaque
             {{- end }}
