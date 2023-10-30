@@ -11,6 +11,6 @@ spec:
     - pl-demo-mc2
     #- pl-submariner-alphacorp
     # ClusterSet betacorp
-    - pl-import-cluster-01
+    #- pl-import-cluster-01
     - pl-import-cluster-02
     - pl-glqpr
