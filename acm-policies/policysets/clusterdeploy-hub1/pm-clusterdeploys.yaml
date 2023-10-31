@@ -24,3 +24,6 @@ subjects:
 - name: pls-clusterdeploys
   apiGroup: policy.open-cluster-management.io
   kind: PolicySet
+- name: pls-clusterpooldeploys
+  apiGroup: policy.open-cluster-management.io
+  kind: PolicySet
