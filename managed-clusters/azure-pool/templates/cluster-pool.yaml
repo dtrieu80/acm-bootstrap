@@ -1,0 +1,29 @@
+apiVersion: hive.openshift.io/v1
+kind: ClusterPool
+metadata:
+  name: {{ .Values.clusterPoolName }}
+  namespace: {{ .Values.clusterPoolName }}
+  labels:
+    cloud: 'Azure'
+    region: {{ .Values.install.region }}
+    vendor: OpenShift
+  annotations:
+    argocd.argoproj.io/sync-options: Delete=true
+spec:
+  size: {{ .Values.poolSize }}
+  runningCount: {{ .Values.poolAwake }}
+  baseDomain: {{ .Values.install.baseDomain }}
+  installConfigSecretTemplateRef:
+    name: {{ .Values.clusterPoolName }}-install-config
+  imageSetRef:
+     #quay.io/openshift-release-dev/ocp-release:4.13.19-multi
+    name: img{{ .Values.install.ocpVersion }}-multi-appsub
+  pullSecretRef:
+    name: {{ .Values.clusterPoolName }}-pull-secret
+  platform:
+    azure:
+      baseDomainResourceGroupName: {{ .Values.install.resourceGroup }}
+      credentialsSecretRef:
+        name: {{ .Values.clusterPoolName }}-azure-creds
+      region: {{ .Values.install.region }}
+      cloudName: AzurePublicCloud
