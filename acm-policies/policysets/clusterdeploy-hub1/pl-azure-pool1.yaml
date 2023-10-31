@@ -25,7 +25,7 @@ spec:
                 apiVersion: argoproj.io/v1alpha1
                 kind: Application
                 metadata:
-                  name: demo-mc1 # Update: <clusterName>
+                  name: azure-pool1 # Update: <clusterName>
                   namespace: openshift-gitops
                   finalizers:
                   - resources-finalizer.argocd.argoproj.io
