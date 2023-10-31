@@ -5,4 +5,5 @@ metadata:
 spec:
   description: ClusterPool ArgoApp Deployments
   policies:
+    - pl-hive-pool-secrets
     - pl-azure-pool1
