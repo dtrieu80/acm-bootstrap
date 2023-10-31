@@ -5,4 +5,4 @@ metadata:
 spec:
   description: ClusterPool ArgoApp Deployments
   policies:
-    #- pl-azure-pool1
+    - pl-azure-pool1
