@@ -9,7 +9,7 @@ spec:
       labelSelector:
         matchExpressions:
           - {key: versedt.dev/acm-enabled, operator: In, values: ["true"]}
-          - {key: name, operator: In, values: ["import-cluster-01"]}
+          - {key: name, operator: In, values: ["nomatch"]}
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
