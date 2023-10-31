@@ -1,0 +1,61 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-manage-import-cluster
+  annotations:
+    policy.open-cluster-management.io/description: 'Manage import-cluster'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: manage-ocp-cluster-import-cluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Application
+                metadata:
+                  name: manage-ocp-cluster
+                  namespace: openshift-gitops
+                  finalizers:
+                  - resources-finalizer.argocd.argoproj.io
+                spec:
+                  destination:
+                    server: 'https://kubernetes.default.svc'
+                  project: default
+                  source:
+                    helm:
+                      # Update: Refer to Helm Chart for proper values
+                      values: |
+                        desiredMachineSets:
+                        {{hub if (index (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "default" .ManagedClusterName).metadata.labels "versedt.dev/workerNodeCount") hub}}
+                          - type: worker
+                            replicas: {{hub (index (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "default" .ManagedClusterName).metadata.labels "versedt.dev/workerNodeCount") hub}}
+                        {{hub end hub}}
+                        {{hub if (index (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "default" .ManagedClusterName).metadata.labels "versedt.dev/masterNodeCount") hub}}
+                          - type: master
+                            replicas: {{hub (index (lookup "cluster.open-cluster-management.io/v1" "ManagedCluster" "default" .ManagedClusterName).metadata.labels "versedt.dev/masterNodeCount") hub}}
+                        {{hub end hub}}
+                        currentMachineSets:
+                        {{- range $ms := (lookup "machine.openshift.io/v1beta1" "MachineSet" "openshift-machine-api" "").items }}
+                          - name: {{ $ms.metadata.name }}
+                            namespace: {{ $ms.metadata.namespace }}
+                            type: {{ index $ms.spec.template.metadata.labels "machine.openshift.io/cluster-api-machine-role" }}
+                            replicas: {{ $ms.spec.replicas }}
+                        {{- end }}
+                    path: managed-clusters/openshift
+                    repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                    targetRevision: main
+                  syncPolicy:
+                    automated:
+                      selfHeal: true
