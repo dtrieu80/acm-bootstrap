@@ -70,11 +70,12 @@ spec:
                           ocpVersion: 4.12.37
                           computeReplicas: 3 # Match value to install.computeReplicas for install, but can be changed later.
                           additionalCompute:
-                            replicas: 2
-                            cpus: 4
-                            coresPerSocket: 2
-                            memoryMB: 16384
-                            osDiskSizeGB: 120
+                            - id: 0
+                              replicas: 2
+                              cpus: 4
+                              coresPerSocket: 2
+                              memoryMB: 16384
+                              osDiskSizeGB: 120
                           managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
