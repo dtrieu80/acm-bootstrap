@@ -41,8 +41,8 @@ spec:
                       # Update: Refer to Helm Chart for proper values
                       values: |
                         clusterPoolName: azure-pool1
-                        poolSize: 2
-                        poolAwake: 0
+                        poolSize: 1
+                        poolAwake: 1
                         install:
                           ocpVersion: 4.12.35
                           region: eastus
