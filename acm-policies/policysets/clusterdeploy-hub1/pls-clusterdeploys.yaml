@@ -13,5 +13,5 @@ spec:
     # ClusterSet betacorp
     #- pl-import-cluster-01
     #- pl-import-cluster-02
-    - pl-glqpr
+    #- pl-glqpr
     - pl-5tktf
