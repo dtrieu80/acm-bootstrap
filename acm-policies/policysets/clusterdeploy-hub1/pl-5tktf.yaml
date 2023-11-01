@@ -67,7 +67,7 @@ spec:
                             ingressVIP: 192.168.33.202
                             network: segment-sandbox-5tktf
                         runtime: # Changeable values post-install
-                          ocpVersion: 4.12.35
+                          ocpVersion: 4.12.39
                           computeReplicas: 3 # Match value to install.computeReplicas for install, but can be changed later.
                           managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
                             versedt.dev/acm-enabled: true
