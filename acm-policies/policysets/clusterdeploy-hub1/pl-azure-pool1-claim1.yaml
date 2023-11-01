@@ -29,4 +29,4 @@ spec:
                   namespace: azure-pool1 # Update: <clusterPoolName>
                 spec:
                   clusterPoolName: azure-pool1 # Update: <clusterPoolName>
-                  lifetime: 7d # Update: <num>h, <num>d
+                  lifetime: 8h # Update: <num>h, only use hours
