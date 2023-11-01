@@ -1,0 +1,32 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-azure-pool1-claim2 # Update: pl-<clusterClaimName>
+  annotations:
+    policy.open-cluster-management.io/description: 'Claim cluster1 from clusterpool azure-pool1' # Update: Deploy clusterpool <clusterPoolName>
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: azure-pool1-claim2-argoapp # Update: <clusterClaimName>-argoapp
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: hive.openshift.io/v1
+                kind: ClusterClaim
+                metadata:
+                  name: azure-pool1-claim2 # Update: <clusterClaimName>
+                  namespace: azure-pool1 # Update: <clusterPoolName>
+                spec:
+                  clusterPoolName: azure-pool1 # Update: <clusterPoolName>
+                  lifetime: 8h # Update: <num>h, only use hours
