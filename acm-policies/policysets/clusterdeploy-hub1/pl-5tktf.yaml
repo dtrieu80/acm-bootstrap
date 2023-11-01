@@ -1,0 +1,108 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-5tktf # Update: pl-<clusterName>
+  annotations:
+    policy.open-cluster-management.io/description: 'pl-5tktf ' # Update: Deploy cluster <clusterName>
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: 5tktf-argoapp # Update: <clusterName>-argoapp
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Application
+                metadata:
+                  name: 5tktf  # Update: <clusterName>
+                  namespace: openshift-gitops
+                  finalizers:
+                  - resources-finalizer.argocd.argoproj.io
+                spec:
+                  destination:
+                    server: 'https://kubernetes.default.svc'
+                  project: default
+                  source:
+                    helm:
+                      # Update: Refer to Helm Chart for proper values
+                      values: |
+                        clusterName: 5tktf # Kubernetes-compatible
+                        install: # Values for install and should not be changed after install.
+                          ocpVersion: 4.12.35 # x.y.z
+                          controlplaneReplicas: 3  
+                          controlPlane:
+                            cpus: 4
+                            coresPerSocket: 2
+                            memoryMB: 16384
+                            osDiskSizeGB: 120
+                          computeReplicas: 2        
+                          compute:
+                            cpus: 4
+                            coresPerSocket: 2
+                            memoryMB: 16384
+                            osDiskSizeGB: 120
+                          sshPubkey: {{ fromSecret "openshift-config" "vmware2-creds" "ssh-publickey" | base64dec }}
+                          machineNetworkCIDR: 192.168.33.0/24
+                          baseDomain: {{ fromSecret "openshift-config" "vmware2-creds" "baseDomain" | base64dec }}
+                          vsphere:
+                            vCenter: {{ fromSecret "openshift-config" "vmware2-creds" "vCenter" | base64dec }}
+                            username: {{ fromSecret "openshift-config" "vmware2-creds" "username"  | base64dec }} 
+                            password: {{ fromSecret "openshift-config" "vmware2-creds" "password" | base64dec }}
+                            cluster: {{ fromSecret "openshift-config" "vmware2-creds" "cluster" | base64dec }}
+                            datacenter: {{ fromSecret "openshift-config" "vmware2-creds" "datacenter" | base64dec }} 
+                            datastore: {{ fromSecret "openshift-config" "vmware2-creds" "defaultDatastore" | base64dec }}
+                            folder: {{ fromSecret "openshift-config" "vmware2-creds" "vsphereFolder" | base64dec  }}
+                            apiVIP: 192.168.33.201
+                            ingressVIP: 192.168.33.202
+                            network: segment-sandbox-5tktf
+                        runtime: # Changeable values post-install
+                          ocpVersion: 4.12.35
+                          computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
+                          managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
+                            versedt.dev/acm-enabled: true
+                            versedt.dev/environment: lab
+                    path: managed-clusters/vmware # Update: <provider>
+                    repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                    targetRevision: main
+                  syncPolicy:
+                    automated:
+                      selfHeal: true
+      extraDependencies:
+      - apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        name: 5tktf-managedcluster # Update: <clusterName>-managedcluster
+        namespace: ""
+        compliance: Compliant
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: 5tktf-managedcluster # Update: <clusterName>-managedcluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: cluster.open-cluster-management.io/v1
+              kind: ManagedCluster
+              metadata:
+                labels:
+                  cloud: vSphere # Update: <provider>
+                  vendor: OpenShift
+                  cluster.open-cluster-management.io/clusterset: 'betacorp'
+                name: 5tktf # Update: <clusterName>
+              spec:
+                hubAcceptsClient: true
