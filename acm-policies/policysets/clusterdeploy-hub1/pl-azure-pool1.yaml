@@ -60,9 +60,9 @@ spec:
                             - "3"
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
                         runtime:
-                          ocpVersion: 4.12.35
-                          poolSize: 1
-                          poolAwake: 0
+                          ocpVersion: 4.12.39
+                          poolSize: 2
+                          poolAwake: 1
                   syncPolicy:
                     automated:
                       selfHeal: true
