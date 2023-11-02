@@ -14,7 +14,7 @@ spec:
   clusterName: {{ .Values.clusterName }}
   controlPlaneConfig:
     servingCertificates: {}
-  installAttemptsLimit: 3
+  installAttemptsLimit: 1
   platform:
     azure:
       baseDomainResourceGroupName: {{ .Values.install.resourceGroup }}

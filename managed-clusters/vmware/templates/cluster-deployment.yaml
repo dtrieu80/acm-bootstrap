@@ -13,7 +13,7 @@ spec:
   clusterName: {{ .Values.clusterName }}
   controlPlaneConfig:
     servingCertificates: {}
-  installAttemptsLimit: 3
+  installAttemptsLimit: 1
   platform:
     vsphere:
       cluster: {{ .Values.install.vsphere.cluster }}
