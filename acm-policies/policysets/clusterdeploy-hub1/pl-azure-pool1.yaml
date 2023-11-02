@@ -41,11 +41,8 @@ spec:
                       # Update: Refer to Helm Chart for proper values
                       values: |
                         clusterPoolName: azure-pool1
-                        clusterSetName: internal
-                        poolSize: 1
-                        poolAwake: 0
                         install:
-                          ocpVersion: 4.12.35
+                          clusterSetName: internal
                           region: eastus
                           baseDomain: {{ fromSecret "openshift-config" "demo-creds" "baseDomain" | base64dec }}
                           resourceGroup: {{ fromSecret "openshift-config" "demo-creds" "baseDomainResourceGroupName" | base64dec }}
@@ -62,6 +59,10 @@ spec:
                             - "2"
                             - "3"
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
+                        runtime:
+                          ocpVersion: 4.12.35
+                          poolSize: 1
+                          poolAwake: 0
                   syncPolicy:
                     automated:
                       selfHeal: true

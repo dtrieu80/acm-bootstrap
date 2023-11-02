@@ -7,20 +7,20 @@ metadata:
     cloud: 'Azure'
     region: {{ .Values.install.region }}
     vendor: OpenShift
-    {{ if .Values.clusterSetName }}
-    cluster.open-cluster-management.io/clusterset: {{ .Values.clusterSetName }}
+    {{ if .Values.install.clusterSetName }}
+    cluster.open-cluster-management.io/clusterset: {{ .Values.install.clusterSetName }}
     {{- end }}
   annotations:
     argocd.argoproj.io/sync-options: Delete=true
 spec:
-  size: {{ .Values.poolSize }}
-  runningCount: {{ .Values.poolAwake }}
+  size: {{ .Values.runtime.poolSize }}
+  runningCount: {{ .Values.runtime.poolAwake }}
   baseDomain: {{ .Values.install.baseDomain }}
   installConfigSecretTemplateRef:
     name: {{ .Values.clusterPoolName }}-install-config
   imageSetRef:
      #quay.io/openshift-release-dev/ocp-release:4.13.19-multi
-    name: img{{ .Values.install.ocpVersion }}-multi-appsub
+    name: img{{ .Values.runtime.ocpVersion }}-multi-appsub
   pullSecretRef:
     name: {{ .Values.clusterPoolName }}-pull-secret
   platform:
