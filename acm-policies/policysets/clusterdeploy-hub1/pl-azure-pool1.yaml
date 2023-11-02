@@ -42,7 +42,7 @@ spec:
                       values: |
                         clusterPoolName: azure-pool1
                         poolSize: 1
-                        poolAwake: 1
+                        poolAwake: 0
                         install:
                           ocpVersion: 4.12.35
                           region: eastus
