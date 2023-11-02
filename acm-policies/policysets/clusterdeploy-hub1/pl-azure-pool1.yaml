@@ -62,7 +62,7 @@ spec:
                         runtime:
                           ocpVersion: 4.12.39
                           poolSize: 1
-                          poolAwake: 1
+                          poolAwake: 0
                   syncPolicy:
                     automated:
                       selfHeal: true
