@@ -7,6 +7,9 @@ metadata:
     cloud: 'Azure'
     region: {{ .Values.install.region }}
     vendor: OpenShift
+    {{ if .Values.clusterSetName }}
+    cluster.open-cluster-management.io/clusterset: {{ .Values.clusterSetName }}
+    {{- end }}
   annotations:
     argocd.argoproj.io/sync-options: Delete=true
 spec:

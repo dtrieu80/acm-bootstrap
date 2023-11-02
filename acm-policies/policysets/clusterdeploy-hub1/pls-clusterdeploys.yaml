@@ -7,13 +7,13 @@ spec:
   policies:
     - pl-hive-secrets
     # ClusterSet alphacorp
-    - pl-demo-mc1
+    #- pl-demo-mc1
     #- pl-demo-mc2
     #- pl-submariner-alphacorp
     # ClusterSet betacorp
     #- pl-import-cluster-01
     #- pl-import-cluster-02
-    - pl-glqpr
+    #- pl-glqpr
     #- pl-5tktf
     # ClusterPool Checkouts (ClusterClaims.hive) for azure-pool1
     #- pl-azure-pool1-claim1
