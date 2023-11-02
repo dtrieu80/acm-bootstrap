@@ -9,6 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Delete=true  
 spec:
+  powerState: {{ .Values.runtime.powerState }}
   baseDomain:  {{ .Values.install.baseDomain }}
   clusterName: {{ .Values.clusterName }}
   controlPlaneConfig:

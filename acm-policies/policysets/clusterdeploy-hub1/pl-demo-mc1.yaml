@@ -57,6 +57,7 @@ spec:
                             - "3"
                           sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
                         runtime:
+                          powerState: Running
                           ocpVersion: 4.12.35
                           computeReplicas: 2
                           managedClusterLabels:
