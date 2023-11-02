@@ -41,6 +41,7 @@ spec:
                       # Update: Refer to Helm Chart for proper values
                       values: |
                         clusterPoolName: azure-pool1
+                        clusterSetName: internal
                         poolSize: 1
                         poolAwake: 0
                         install:
