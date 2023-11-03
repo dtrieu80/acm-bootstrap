@@ -14,7 +14,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: pl-etcd-encryption
+          name: enable-etcd-encryption
         spec:
           remediationAction: inform
           severity: low
