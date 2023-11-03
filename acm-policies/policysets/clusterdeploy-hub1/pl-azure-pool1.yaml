@@ -50,7 +50,7 @@ spec:
                           controlPlane:
                             size: Standard_D4s_v3
                             osDiskSizeGB: 128
-                          computeReplicas: 2
+                          computeReplicas: 3  # Minimum 3, avoids splitbrain?
                           compute:
                             size: Standard_D2s_v3
                             osDiskSizeGB: 128
