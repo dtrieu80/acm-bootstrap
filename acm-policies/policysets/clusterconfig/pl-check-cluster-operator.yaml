@@ -15,7 +15,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: pl-check-cluster-operator
+          name: check-cluster-operator
         spec:
           remediationAction: inform
           severity: low
