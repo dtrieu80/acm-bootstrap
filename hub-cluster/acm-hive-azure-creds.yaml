@@ -6,6 +6,7 @@ metadata:
   labels:
     cluster.open-cluster-management.io/type: azr
     cluster.open-cluster-management.io/credentials: ""
+    cluster.open-cluster-management.io/backup: ""
 stringData:
   cloudName: AzurePublicCloud
   ssh-privatekey: |
