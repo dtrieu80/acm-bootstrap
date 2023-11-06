@@ -3,9 +3,10 @@ kind: Policy
 metadata:
   name: pl-etcd-encryption
   annotations:
-    policy.open-cluster-management.io/standards: NIST SP 800-53
-    policy.open-cluster-management.io/categories: SC System and Communications Protection
-    policy.open-cluster-management.io/controls: SC-28 Protection Of Information At Rest
+    policy.open-cluster-management.io/description: 'Enable etcd encryption'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
 spec:
   remediationAction: inform
   disabled: false

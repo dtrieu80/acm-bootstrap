@@ -13,5 +13,6 @@ spec:
     - pl-check-cluster-operator
     - pl-etcd-encryption
     - pl-limit-clusteradmin
+    - pl-expiring-certs
     #- pl-gatekeeper-install
     #- pl-gatekeeper-config

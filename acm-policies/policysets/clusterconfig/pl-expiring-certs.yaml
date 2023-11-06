@@ -1,0 +1,27 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-expiring-certs
+  annotations:
+    policy.open-cluster-management.io/description: 'Check for expiring certs'
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: CertificatePolicy
+        metadata:
+          name: expire-within-2weeks
+        spec:
+          namespaceSelector:
+            include:
+              - openshift-config
+              - openshift-apiserver
+            exclude:
+              - kube-*
+          remediationAction: inform
+          severity: low
+          minimumDuration: 336h
