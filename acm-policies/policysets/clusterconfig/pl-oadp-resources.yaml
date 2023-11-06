@@ -40,7 +40,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: create-oadp-azure-secret
+          name: create-oadp-azure-resource
         spec:
           remediationAction: enforce
           severity: low
