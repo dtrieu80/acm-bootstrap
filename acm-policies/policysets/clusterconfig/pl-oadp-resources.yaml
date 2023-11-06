@@ -28,13 +28,13 @@ spec:
                   namespace: open-cluster-management-backup
                 stringData:
                   cloud: |
-                    AZURE_SUBSCRIPTION_ID={{ fromSecret "openshift-config" "oadp-secret" "azureSubscriptionId" }}
-                    AZURE_TENANT_ID={{ fromSecret "openshift-config" "oadp-secret" "azureTenantId" }}
-                    AZURE_CLIENT_ID={{ fromSecret "openshift-config" "oadp-secret" "azureClientId" }}
-                    AZURE_CLIENT_SECRET={{ fromSecret "openshift-config" "oadp-secret" "azureClientSecret" }}
-                    AZURE_RESOURCE_GROUP={{ fromSecret "openshift-config" "oadp-secret" "azureResourceGroup" }}
-                    AZURE_STORAGE_ACCOUNT_ACCESS_KEY={{ fromSecret "openshift-config" "oadp-secret" "azureStorageAccountAccessKey" }}
-                    AZURE_CLOUD_NAME={{ fromSecret "openshift-config" "oadp-secret" "azureCloudName" }}
+                    AZURE_SUBSCRIPTION_ID={{ fromSecret "openshift-config" "oadp-secret" "azureSubscriptionId" | base64dec }}
+                    AZURE_TENANT_ID={{ fromSecret "openshift-config" "oadp-secret" "azureTenantId" | base64dec }}
+                    AZURE_CLIENT_ID={{ fromSecret "openshift-config" "oadp-secret" "azureClientId" | base64dec }}
+                    AZURE_CLIENT_SECRET={{ fromSecret "openshift-config" "oadp-secret" "azureClientSecret" | base64dec }}
+                    AZURE_RESOURCE_GROUP={{ fromSecret "openshift-config" "oadp-secret" "azureResourceGroup" | base64dec }}
+                    AZURE_STORAGE_ACCOUNT_ACCESS_KEY={{ fromSecret "openshift-config" "oadp-secret" "azureStorageAccountAccessKey" | base64dec }}
+                    AZURE_CLOUD_NAME={{ fromSecret "openshift-config" "oadp-secret" "azureCloudName" | base64dec }}
                 type: Opaque
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
