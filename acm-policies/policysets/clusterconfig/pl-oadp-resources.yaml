@@ -35,7 +35,7 @@ spec:
                     AZURE_RESOURCE_GROUP={{ fromSecret "openshift-config" "oadp-secret" "azureResourceGroup" }}
                     AZURE_STORAGE_ACCOUNT_ACCESS_KEY={{ fromSecret "openshift-config" "oadp-secret" "azureStorageAccountAccessKey" }}
                     AZURE_CLOUD_NAME={{ fromSecret "openshift-config" "oadp-secret" "azureCloudName" }}
-                type: kubernetes.io/dockerconfigjson
+                type: Opaque
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
