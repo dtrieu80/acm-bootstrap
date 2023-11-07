@@ -7,7 +7,7 @@ spec:
   policies:
     - pl-ocp-gitops-install
     - pl-ocp-gitops-config
-    # - pl-oauth-idp
+    - pl-oauth-idp
     # - pl-ocp-compliance-install
     # - pl-ocp-compliance-cis-scan
     # - pl-check-cluster-operator
