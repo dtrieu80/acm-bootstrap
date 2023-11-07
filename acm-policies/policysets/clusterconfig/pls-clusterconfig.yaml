@@ -10,9 +10,9 @@ spec:
     - pl-oauth-idp
     - pl-ocp-compliance-install
     - pl-ocp-compliance-cis-scan
-    # - pl-check-cluster-operator
-    # - pl-etcd-encryption
-    # - pl-limit-clusteradmin
-    # - pl-expiring-certs
-    # - pl-gatekeeper-install
-    # - pl-gatekeeper-config
+    - pl-check-cluster-operator
+    - pl-etcd-encryption
+    - pl-limit-clusteradmin
+    - pl-expiring-certs
+    - pl-gatekeeper-install
+    - pl-gatekeeper-config
