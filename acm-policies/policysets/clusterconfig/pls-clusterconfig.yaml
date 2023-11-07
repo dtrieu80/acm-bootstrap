@@ -8,8 +8,8 @@ spec:
     - pl-ocp-gitops-install
     - pl-ocp-gitops-config
     - pl-oauth-idp
-    # - pl-ocp-compliance-install
-    # - pl-ocp-compliance-cis-scan
+    - pl-ocp-compliance-install
+    - pl-ocp-compliance-cis-scan
     # - pl-check-cluster-operator
     # - pl-etcd-encryption
     # - pl-limit-clusteradmin
