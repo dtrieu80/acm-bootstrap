@@ -69,7 +69,7 @@ spec:
                         runtime: # Changeable values post-install
                           powerState: Running
                           ocpVersion: 4.12.39
-                          computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
+                          computeReplicas: 4 # Match value to install.computeReplicas for install, but can be changed later.
                           managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
