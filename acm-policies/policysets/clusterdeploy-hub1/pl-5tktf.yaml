@@ -68,15 +68,8 @@ spec:
                             network: segment-sandbox-5tktf
                         runtime: # Changeable values post-install
                           powerState: Running
-                          ocpVersion: 4.13.17
-                          computeReplicas: 4 # Match value to install.computeReplicas for install, but can be changed later.
-                          additionalCompute:
-                            - id: 0
-                              replicas: 1
-                              cpus: 4
-                              coresPerSocket: 2
-                              memoryMB: 16384
-                              osDiskSizeGB: 120
+                          ocpVersion: 4.12.35
+                          computeReplicas: 2 # Match value to install.computeReplicas for install, but can be changed later.
                           managedClusterLabels: # Labels that will be applied to the ManagedCluster. Values will be cast to strings.
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
