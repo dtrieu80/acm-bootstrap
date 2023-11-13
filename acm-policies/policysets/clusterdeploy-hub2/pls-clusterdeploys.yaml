@@ -1,0 +1,12 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: pls-clusterdeploys
+spec:
+  description: Cluster ArgoApp Deployments
+  policies:
+    - pl-hive-secrets
+    #- pl-demo-mc3
+    #- pl-glqpr
+
+

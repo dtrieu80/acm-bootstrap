@@ -1,0 +1,99 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-demo-mc3 # Update: pl-<clusterName>
+  annotations:
+    policy.open-cluster-management.io/description: 'Deploy cluster demo-mc3' # Update: Deploy cluster <clusterName>
+    policy.open-cluster-management.io/standards: ''
+    policy.open-cluster-management.io/categories: ''
+    policy.open-cluster-management.io/controls: ''
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: demo-mc3-argoapp # Update: <clusterName>-argoapp
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates-raw: |
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: argoproj.io/v1alpha1
+                kind: Application
+                metadata:
+                  name: demo-mc3 # Update: <clusterName>
+                  namespace: openshift-gitops
+                  finalizers:
+                  - resources-finalizer.argocd.argoproj.io
+                spec:
+                  destination:
+                    server: 'https://kubernetes.default.svc'
+                  project: default
+                  source:
+                    helm:
+                      # Update: Refer to Helm Chart for proper values
+                      values: |
+                        clusterName: demo-mc3
+                        install:
+                          ocpVersion: 4.12.35
+                          region: eastus
+                          baseDomain: {{ fromSecret "openshift-config" "demo-creds" "baseDomain" | base64dec }}
+                          resourceGroup: {{ fromSecret "openshift-config" "demo-creds" "baseDomainResourceGroupName" | base64dec }}
+                          controlPlaneReplicas: 3
+                          controlPlane:
+                            size: Standard_D4s_v3
+                            osDiskSizeGB: 128
+                          computeReplicas: 2
+                          compute:
+                            size: Standard_D2s_v3
+                            osDiskSizeGB: 128
+                            zones:
+                            - "1"
+                            - "2"
+                            - "3"
+                          sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
+                        runtime:
+                          powerState: Running
+                          ocpVersion: 4.12.35
+                          computeReplicas: 2
+                          managedClusterLabels:
+                            versedt.dev/acm-enabled: true
+                            versedt.dev/environment: lab
+                    path: managed-clusters/azure # Update: <provider>
+                    repoURL: 'https://github.com/dtrieu80/acm-bootstrap.git'
+                    targetRevision: main
+                  syncPolicy:
+                    automated:
+                      selfHeal: true
+      extraDependencies:
+      - apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        name: demo-mc3-managedcluster # Update: <clusterName>-managedcluster
+        namespace: ""
+        compliance: Compliant
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: demo-mc3-managedcluster # Update: <clusterName>-managedcluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: cluster.open-cluster-management.io/v1
+              kind: ManagedCluster
+              metadata:
+                labels:
+                  cloud: Azure # Update: <provider>
+                  vendor: OpenShift
+                  cluster.open-cluster-management.io/clusterset: 'alphacorp'
+                name: demo-mc3 # Update: <clusterName>
+              spec:
+                hubAcceptsClient: true
