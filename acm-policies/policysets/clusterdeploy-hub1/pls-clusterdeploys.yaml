@@ -14,7 +14,7 @@ spec:
     #- pl-import-cluster-01
     #- pl-import-cluster-02
     #- pl-glqpr
-    - pl-5tktf
+    #- pl-5tktf
     # ClusterPool Checkouts (ClusterClaims.hive) for azure-pool1
     #- pl-azure-pool1-claim1
     #- pl-azure-pool1-claim2
