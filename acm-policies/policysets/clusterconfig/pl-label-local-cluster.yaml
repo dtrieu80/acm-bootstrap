@@ -1,0 +1,59 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: pl-label-local-cluster
+  namespace: acm-policies
+spec:
+  disabled: false
+  remediationAction: enforce
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: label-local-cluster
+        spec:
+          remediationAction: enforce
+          severity: low
+          pruneObjectBehavior: DeleteAll
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: cluster.open-cluster-management.io/v1
+                kind: ManagedCluster
+                metadata:
+                  name: local-cluster
+                  labels:
+                    versedt.dev/acm-enabled: true
+                    versedt.dev/deploys-clusters: true
+                spec:
+                  hubAcceptsClient: true
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: pl-label-local-cluster-placement
+  namespace: acm-policies
+spec:
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+            - key: local-cluster
+              operator: In
+              values:
+                - "true"
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: pl-label-local-cluster-placement
+  namespace: acm-policies
+placementRef:
+  name: pl-label-local-cluster-placement
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: pl-label-local-cluster
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
