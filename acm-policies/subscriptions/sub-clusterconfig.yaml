@@ -14,6 +14,12 @@ metadata:
     apps.open-cluster-management.io/git-path: /acm-policies/policysets/clusterconfig
     apps.open-cluster-management.io/reconcile-option: replace
 spec:
-  channel: acm-policies/acm-policies-channel
-  placement:
-    local: true
+  clusterConditions:
+    - status: "True"
+      type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+          - local-cluster
