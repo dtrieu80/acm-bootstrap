@@ -24,8 +24,8 @@ spec:
                 metadata:
                   name: local-cluster
                   labels:
-                    versedt.dev/acm-enabled: true
-                    versedt.dev/deploys-clusters: true
+                    versedt.dev/acm-enabled: 'true'
+                    versedt.dev/deploys-clusters: 'true'
 ---
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
