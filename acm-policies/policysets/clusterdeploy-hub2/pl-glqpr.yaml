@@ -110,7 +110,7 @@ spec:
                 labels:
                   cloud: vSphere # Update: <provider>
                   vendor: OpenShift
-                  cluster.open-cluster-management.io/clusterset: 'betacorp'
+                  cluster.open-cluster-management.io/clusterset: 'default'
                 name: glqpr # Update: <clusterName>
               spec:
                 hubAcceptsClient: true

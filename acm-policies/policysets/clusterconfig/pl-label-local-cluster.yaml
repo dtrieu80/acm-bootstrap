@@ -13,7 +13,7 @@ spec:
         metadata:
           name: label-local-cluster
         spec:
-          remediationAction: enforce
+          remediationAction: inform
           severity: low
           pruneObjectBehavior: DeleteAll
           object-templates:

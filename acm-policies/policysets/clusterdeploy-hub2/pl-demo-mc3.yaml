@@ -93,7 +93,7 @@ spec:
                 labels:
                   cloud: Azure # Update: <provider>
                   vendor: OpenShift
-                  cluster.open-cluster-management.io/clusterset: 'alphacorp'
+                  cluster.open-cluster-management.io/clusterset: 'default'
                 name: demo-mc3 # Update: <clusterName>
               spec:
                 hubAcceptsClient: true

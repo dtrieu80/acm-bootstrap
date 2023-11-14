@@ -17,11 +17,3 @@ spec:
   channel: acm-policies/acm-policies-channel
   placement:
     local: true
----
-apiVersion: cluster.open-cluster-management.io/v1beta2
-kind: ManagedClusterSetBinding
-metadata:
-  name: default
-  namespace: acm-policies
-spec:
-  clusterSet: default
