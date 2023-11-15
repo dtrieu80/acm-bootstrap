@@ -6,7 +6,7 @@ spec:
   description: Cluster ArgoApp Deployments
   policies:
     - pl-hive-secrets
-    #- pl-demo-mc3
-    #- pl-glqpr
+    - pl-demo-mc3
+    - pl-glqpr
 
 
