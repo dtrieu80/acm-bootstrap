@@ -41,8 +41,8 @@ spec:
                         install:
                           ocpVersion: 4.12.35
                           region: eastus
-                          baseDomain: {{ fromSecret "openshift-config" "demo-creds" "baseDomain" | base64dec }}
-                          resourceGroup: {{ fromSecret "openshift-config" "demo-creds" "baseDomainResourceGroupName" | base64dec }}
+                          baseDomain: {{ fromSecret "openshift-config" "azure-creds" "baseDomain" | base64dec }}
+                          resourceGroup: {{ fromSecret "openshift-config" "azure-creds" "baseDomainResourceGroupName" | base64dec }}
                           controlPlaneReplicas: 3
                           controlPlane:
                             size: Standard_D4s_v3
@@ -55,7 +55,7 @@ spec:
                             - "1"
                             - "2"
                             - "3"
-                          sshPubkey: {{ fromSecret "openshift-config" "demo-creds" "ssh-publickey" | base64dec }}
+                          sshPubkey: {{ fromSecret "openshift-config" "azure-creds" "ssh-publickey" | base64dec }}
                         runtime:
                           powerState: Running
                           ocpVersion: 4.12.35
