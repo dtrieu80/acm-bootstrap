@@ -58,7 +58,7 @@ spec:
                           sshPubkey: {{ fromSecret "openshift-config" "azure-creds" "ssh-publickey" | base64dec }}
                         runtime:
                           powerState: Running
-                          ocpVersion: 4.12.35
+                          ocpVersion: 4.12.40
                           computeReplicas: 4
                           managedClusterLabels:
                             versedt.dev/acm-enabled: true
