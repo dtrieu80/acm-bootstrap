@@ -59,7 +59,7 @@ spec:
                         runtime:
                           powerState: Running
                           ocpVersion: 4.12.35
-                          computeReplicas: 3
+                          computeReplicas: 4
                           managedClusterLabels:
                             versedt.dev/acm-enabled: true
                             versedt.dev/environment: lab
